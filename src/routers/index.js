@@ -7,7 +7,8 @@ import sevedRouter from './addToSaved.js';
 const router = Router();
 
 router.use('/auth', authRouter);
-router.use('/recipes', sevedRouter);
+
 router.use('/recipes', ByIdrecipesRouter); // працюе
+router.use('/recipes', sevedRouter);
 
 export default router;

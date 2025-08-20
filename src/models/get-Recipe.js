@@ -55,4 +55,4 @@ RecipeSchema.method('toJSON', function () {
 });
 
 export const Recipe =
-  mongoose.models.Recipe || mongoose.model('Recipe', RecipeSchema);
+  mongoose.models.Recipe || mongoose.model('Recipe', RecipeSchema, 'recipes');
