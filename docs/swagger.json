@@ -7,7 +7,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "This is a documentation of contacts app"
+    "description": "This is a documentation of Recipes app"
   },
   "servers": [
     {
@@ -39,12 +39,46 @@
       "description": "Recipes"
     }
   ],
-  "paths": null,
+  "paths": {
+    "/api/recipes": {
+      "post": {
+        "tags": ["Recipes"],
+        "summary": "Create a new recipe",
+        "description": "Private endpoint (JWT). Creates a new user recipe",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../swagger/components/schemas/RecipeInput.yaml"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recipe created"
+          },
+          "400": {
+            "$ref": "../swagger/components/responses/400.yaml"
+          },
+          "401": {
+            "$ref": "../swagger/components/responses/401.yaml"
+          },
+          "500": {
+            "$ref": "../swagger/components/responses/500.yaml"
+          }
+        }
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

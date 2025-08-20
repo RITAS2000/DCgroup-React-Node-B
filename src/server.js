@@ -34,6 +34,7 @@ export function setupServer() {
   // app.use(cookieParser());
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
   app.use('/api/recipes', addRecipeRoutes);
+  app.use('/uploads', express.static('uploads'));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
