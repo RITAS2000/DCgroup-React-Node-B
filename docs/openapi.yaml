@@ -6,6 +6,17 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: This is a documentation of recipes app
+tags:
+  - name: Auth
+    description: Authentication and registration
+  - name: Users
+    description: User information
+  - name: Categories
+    description: Recipe categories
+  - name: Ingredients
+    description: Ingredients
+  - name: Recipes
+    description: Recipes
 servers:
   - url: http://localhost:3000
   - url: https://dcgroup-react-node-b.onrender.com
