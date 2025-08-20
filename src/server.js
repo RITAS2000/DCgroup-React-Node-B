@@ -7,7 +7,11 @@ import router from './routers/index.js';
 
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+
 import cookieParser from 'cookie-parser';
+
+import addRecipeRoutes from './routers/add-recipe.routes.js';
+
 
 import path from 'node:path';
 import swaggerUI from 'swagger-ui-express';
@@ -35,6 +39,8 @@ export function setupServer() {
 
   app.use(router);
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
+  app.use('/api/recipes', addRecipeRoutes);
+  app.use('/uploads', express.static('uploads'));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
