@@ -42,16 +42,23 @@
   "paths": {
     "/api/recipes": {
       "post": {
-        "tags": ["Recipes"],
+        "operationId": "createRecipe",
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Create a new recipe",
-        "description": "Private endpoint (JWT). Creates a new user recipe",
-        "security": [{ "bearerAuth": [] }],
+        "description": "Private endpoint (JWT). Creates a new user recipe.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "../swagger/components/schemas/RecipeInput.yaml"
+                "$ref": "#/components/schemas/RecipeInput"
               }
             }
           }
@@ -61,13 +68,13 @@
             "description": "Recipe created"
           },
           "400": {
-            "$ref": "../swagger/components/responses/400.yaml"
+            "$ref": "#/components/responses/400"
           },
           "401": {
-            "$ref": "../swagger/components/responses/401.yaml"
+            "$ref": "#/components/responses/401"
           },
           "500": {
-            "$ref": "../swagger/components/responses/500.yaml"
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -79,6 +86,155 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "RecipeInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 64,
+            "example": "Test Soup"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200,
+            "example": "Simple test recipe"
+          },
+          "time": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 360,
+            "example": 20
+          },
+          "calories": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 150
+          },
+          "category": {
+            "type": "string",
+            "description": "One of predefined category collection",
+            "example": "Soup"
+          },
+          "ingredients": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "One of ingredient collection",
+                  "example": "Water"
+                },
+                "amount": {
+                  "type": "string",
+                  "example": "500ml"
+                }
+              },
+              "required": [
+                "name",
+                "amount"
+              ]
+            }
+          },
+          "instructions": {
+            "type": "string",
+            "maxLength": 1200,
+            "example": "Boil water. Add salt."
+          },
+          "photo": {
+            "type": "string",
+            "format": "binary",
+            "description": "Recipe image file (max 2MB)"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "time",
+          "category",
+          "ingredients",
+          "instructions"
+        ]
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Id is not valid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Please provide a valid token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
