@@ -5,6 +5,8 @@ import { getEnvVar } from './utils/getEnvVar.js';
 
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import addRecipeRoutes from './routers/add-recipe.routes.js';
+
 // import cookieParser from 'cookie-parser';
 
 import path from 'node:path';
@@ -31,6 +33,8 @@ export function setupServer() {
 
   // app.use(cookieParser());
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
+  app.use('/api/recipes', addRecipeRoutes);
+  app.use('/uploads', express.static('uploads'));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
