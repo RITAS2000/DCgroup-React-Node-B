@@ -19,7 +19,7 @@ tags:
     description: Recipes
 servers:
   - url: http://localhost:3000
-  - url: https://nodejs-hw-mongodb-5-tce7.onrender.com
+  - url: https://dcgroup-react-node.onrender.com
 paths:
 
 components:
