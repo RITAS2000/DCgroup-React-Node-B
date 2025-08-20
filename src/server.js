@@ -2,10 +2,12 @@ import express from 'express';
 import cors from 'cors';
 // import pino from 'pino-http';
 import { getEnvVar } from './utils/getEnvVar.js';
+import router from './routers/index.js';
+
 
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-// import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 import path from 'node:path';
 import swaggerUI from 'swagger-ui-express';
@@ -29,7 +31,9 @@ export function setupServer() {
   //   }),
   // );
 
-  // app.use(cookieParser());
+  app.use(cookieParser());
+
+  app.use(router);
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
 
   app.use(notFoundHandler);
