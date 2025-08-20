@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import authRouter from './auth.js';
 import ByIdrecipesRouter from './getRecipeById.routes.js'; // працюе
-import sevedRouter from './addToSaved';
+import sevedRouter from './addToSaved.js';
 
 const router = Router();
 
