@@ -77,9 +77,7 @@
             "$ref": "#/components/responses/500"
           }
         }
-      }
-    },
-    "/api/recipes/own": {
+      },
       "get": {
         "tags": [
           "Recipes"

@@ -48,7 +48,6 @@ paths:
         '500':
           $ref: ../swagger/components/responses/500.yaml
 
-  /api/recipes/own:
     get:
       tags: [Recipes]
       summary: Get current user's own recipes

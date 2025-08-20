@@ -38,8 +38,9 @@ export function setupServer() {
 
   app.use(router);
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
-  app.use('/api/recipes', addRecipeRoutes);
+
   app.use('/api/recipes', recipesRouter);
+  app.use('/api/recipes', addRecipeRoutes);
   app.use('/uploads', express.static('uploads'));
 
   app.use(notFoundHandler);
