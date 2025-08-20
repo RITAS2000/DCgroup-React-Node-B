@@ -1,4 +1,5 @@
 import Recipe from '../models/add-recipe.model.js';
+import { getRecipeById } from '../services/recipes.js';
 
 export const createRecipe = async (req, res, next) => {
   try {
@@ -108,4 +109,23 @@ export const createRecipe = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+//отримання рецепта за його id
+
+export const getRecipeByIdController = async (req, res) => {
+  const { recipeId } = req.params;
+  const userId = req.user._id;
+  const recipe = await getRecipeById(recipeId, userId);
+
+  // Відповідь, якщо  рецепт не знайдено
+  if (!recipe) {
+    throw createHttpError(404, 'Recipe not found');
+  }
+  // Відповідь, якщо рецепт знайдено
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully found recipe!',
+    data: contact,
+  });
 };
