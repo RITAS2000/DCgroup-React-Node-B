@@ -189,7 +189,7 @@ components:
               example: 12
             totalItems:
               type: integer
-              example: 42
+              example: 1
             totalPages:
               type: integer
               example: 1
