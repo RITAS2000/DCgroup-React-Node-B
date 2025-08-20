@@ -6,7 +6,12 @@ const usersSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-
+    savedRecipes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'recipes',
+      },
+    ],
   },
   { timestamps: true, versionKey: false },
 );
