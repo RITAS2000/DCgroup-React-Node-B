@@ -49,6 +49,7 @@ paths:
           $ref: ../swagger/components/responses/500.yaml
 
     get:
+      operationId: getOwnRecipe
       tags: [Recipes]
       summary: Get current user's own recipes
       description: >
