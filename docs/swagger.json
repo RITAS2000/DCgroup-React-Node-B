@@ -7,7 +7,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "This is a documentation of contacts app"
+    "description": "This is a documentation of recipes app"
   },
   "servers": [
     {
@@ -39,12 +39,395 @@
       "description": "Recipes"
     }
   ],
-  "paths": null,
+  "paths": {
+    "/api/recipes": {
+      "post": {
+        "operationId": "createRecipe",
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Create a new recipe",
+        "description": "Private endpoint (JWT). Creates a new user recipe.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recipe created"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get current user's own recipes",
+        "description": "Returns recipes owned by the current user (determined by JWT in the Authorization header).\n",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "description": "Page number (1..N)"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 12
+            },
+            "description": "Number of items per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found own recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnRecipesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "RecipeIngredient": {
+        "type": "object",
+        "required": [
+          "ingredient",
+          "ingredientAmount"
+        ],
+        "properties": {
+          "ingredient": {
+            "type": "string",
+            "description": "Ingredient ID (one of ingredient collection)",
+            "example": "66b8e6b2f1c8a5f2d1a9c111"
+          },
+          "ingredientAmount": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16,
+            "example": "100 g"
+          }
+        }
+      },
+      "Recipe": {
+        "type": "object",
+        "required": [
+          "name",
+          "decr",
+          "cookiesTime",
+          "category",
+          "ingredients",
+          "instruction",
+          "owner",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "66b8e6b2f1c8a5f2d1a9c222"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "example": "Pasta Carbonara"
+          },
+          "decr": {
+            "type": "string",
+            "maxLength": 200,
+            "example": "Classic Italian pasta with eggs, cheese and pancetta"
+          },
+          "cookiesTime": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 360,
+            "example": 25,
+            "description": "time in minutes"
+          },
+          "cals": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 450
+          },
+          "category": {
+            "type": "string",
+            "example": "66b8e6b2f1c8a5f2d1a9c777",
+            "description": "ID from the category collection"
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipeIngredient"
+            }
+          },
+          "instruction": {
+            "type": "string",
+            "maxLength": 1200,
+            "example": "Boil pasta, fry pancetta, mix with eggs and cheese..."
+          },
+          "recipeImg": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://cdn.example.com/images/recipe.jpg"
+          },
+          "owner": {
+            "type": "string",
+            "example": "66b8e6b2f1c8a5f2d1a9c999"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-20T12:34:56.000Z"
+          }
+        }
+      },
+      "OwnRecipesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Successfully found own recipes!"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              },
+              "page": {
+                "type": "integer",
+                "example": 1
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 12
+              },
+              "totalItems": {
+                "type": "integer",
+                "example": 42
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "hasPreviousPage": {
+                "type": "boolean",
+                "example": false
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        }
+      },
+      "RecipeInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 64,
+            "example": "Test Soup"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200,
+            "example": "Simple test recipe"
+          },
+          "time": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 360,
+            "example": 20
+          },
+          "calories": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 150
+          },
+          "category": {
+            "type": "string",
+            "description": "One of predefined category collection",
+            "example": "Soup"
+          },
+          "ingredients": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "One of ingredient collection",
+                  "example": "Water"
+                },
+                "amount": {
+                  "type": "string",
+                  "example": "500ml"
+                }
+              },
+              "required": [
+                "name",
+                "amount"
+              ]
+            }
+          },
+          "instructions": {
+            "type": "string",
+            "maxLength": 1200,
+            "example": "Boil water. Add salt."
+          },
+          "photo": {
+            "type": "string",
+            "format": "binary",
+            "description": "Recipe image file (max 2MB)"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "time",
+          "category",
+          "ingredients",
+          "instructions"
+        ]
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Id is not valid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Please provide a valid token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

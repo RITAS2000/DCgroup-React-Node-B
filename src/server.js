@@ -2,14 +2,19 @@ import express from 'express';
 import cors from 'cors';
 // import pino from 'pino-http';
 import { getEnvVar } from './utils/getEnvVar.js';
+import router from './routers/index.js';
 
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-// import cookieParser from 'cookie-parser';
+
+import cookieParser from 'cookie-parser';
+
+import addRecipeRoutes from './routers/add-recipe.routes.js';
 
 import path from 'node:path';
 import swaggerUI from 'swagger-ui-express';
 import * as fs from 'node:fs';
+import recipesRouter from './routers/recipes.js';
 
 const SWAGGER_DOCUMENT = JSON.parse(
   fs.readFileSync(path.join('docs', 'swagger.json')),
@@ -29,8 +34,14 @@ export function setupServer() {
   //   }),
   // );
 
-  // app.use(cookieParser());
+  app.use(cookieParser());
+
+  app.use(router);
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
+
+  app.use('/api/recipes', recipesRouter);
+  app.use('/api/recipes', addRecipeRoutes);
+  app.use('/uploads', express.static('uploads'));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
