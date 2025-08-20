@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import authRouter from './auth.js';
-import savedRecipes from './addToSaved.js';
+import recipesRouter from './addToSaved.js';
 
 const router = Router();
 
 router.use('/auth', authRouter);
-router.use('/recipes', savedRecipes);
+router.use('/recipes', recipesRouter);
 
 export default router;
