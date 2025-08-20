@@ -6,8 +6,7 @@ export const postSavedRecipes = async (recipeId, userId) => {
   if (!recipe) return;
 
   const user = await UsersCollection.findById(userId);
-  if (user.savedRecipes.some((id) => id.toString() === recipeId.toString()))
-    return;
+  if (user.savedRecipes.some((id) => id.toString() === recipeId)) return;
   await UsersCollection.findByIdAndUpdate(userId, {
     $push: { savedRecipes: recipeId },
   });
