@@ -6,24 +6,141 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: This is a documentation of recipes app
-tags:
-  - name: Auth
-    description: Authentication and registration
-  - name: Users
-    description: User information
-  - name: Categories
-    description: Recipe categories
-  - name: Ingredients
-    description: Ingredients
-  - name: Recipes
-    description: Recipes
 servers:
   - url: http://localhost:3000
   - url: https://dcgroup-react-node-b.onrender.com
+tags:
+  - name: Recipes
+    description: Recipes
+
 paths:
+  /api/recipes/own:
+    get:
+      tags: [Recipes]
+      summary: Get current user's own recipes
+      description: Повертає рецепти, власником яких є поточний користувач (визначається за JWT у заголовку Authorization).
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, minimum: 1, default: 1 }
+          description: Номер сторінки (1..N)
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+          description: Кількість елементів на сторінці
+      responses:
+      '200':
+    description: Successfully found own recipes
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/OwnRecipesResponse'
+        '401':
+          $ref: '../swagger/components/responses/401.yaml'
+        '500':
+          $ref: '../swagger/components/responses/500.yaml'
 
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+
+  schemas:
+    Recipe:
+      type: object
+      required:
+        - name
+        - decr
+        - cookiesTime
+        - category
+        - ingredients
+        - instruction
+        - owner
+        - createdAt
+      properties:
+        id:
+          type: string
+          example: '66b8e6b2f1c8a5f2d1a9c222'
+        name:
+          type: string
+          maxLength: 64
+          example: 'Pasta Carbonara'
+          description: 'max: 64, required'
+        decr:
+          type: string
+          maxLength: 200
+          example: 'Classic Italian pasta with eggs, cheese and pancetta'
+          description: 'max: 200, required'
+        cookiesTime:
+          type: integer
+          minimum: 1
+          maximum: 360
+          example: 25
+          description: 'time in minutes, min: 1, max: 360, required'
+        cals:
+          type: integer
+          minimum: 1
+          maximum: 10000
+          nullable: true
+          example: 450
+          description: 'calories amount, min: 1, max: 10000, not required'
+        category:
+          type: string
+          example: '66b8e6b2f1c8a5f2d1a9c777'
+          description: 'one of category collection, required (ID)'
+        ingredients:
+          type: array
+          description: 'список інгредієнтів; кожен — з ID інгредієнта та кількістю'
+          items:
+            type: object
+            required: [ingredient, ingredientAmount]
+            properties:
+              ingredient:
+                type: string
+                example: '66b8e6b2f1c8a5f2d1a9c111'
+                description: 'one of ingredient collection, required (ID)'
+              ingredientAmount:
+                type: string
+                minLength: 2
+                maxLength: 16
+                example: '100 g'
+                description: 'min: 2, max: 16, required'
+        instruction:
+          type: string
+          maxLength: 1200
+          example: 'Boil pasta, fry pancetta, mix with eggs and cheese...'
+          description: 'max: 1200, required'
+        recipeImg:
+          type: string
+          format: uri
+          nullable: true
+          example: 'https://cdn.example.com/images/recipe.jpg'
+          description: 'recipe image file/url, maxSize: 2Mb, not required (для GET повертаємо URL)'
+        owner:
+          type: string
+          example: '66b8e6b2f1c8a5f2d1a9c999'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-08-20T12:34:56.000Z'
+
+    PaginationMeta:
+      type: object
+      properties:
+        page: { type: integer, example: 1 }
+        limit: { type: integer, example: 20 }
+        total: { type: integer, example: 42 }
+        totalPages: { type: integer, example: 3 }
+
+    PaginatedRecipes:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipe'

@@ -10,6 +10,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import path from 'node:path';
 import swaggerUI from 'swagger-ui-express';
 import * as fs from 'node:fs';
+import recipesRouter from './routers/recipes.js';
 
 const SWAGGER_DOCUMENT = JSON.parse(
   fs.readFileSync(path.join('docs', 'swagger.json')),
@@ -31,7 +32,7 @@ export function setupServer() {
 
   // app.use(cookieParser());
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
-
+  app.use('/api/recipes', recipesRouter);
   app.use(notFoundHandler);
   app.use(errorHandler);
   app.listen(PORT, () => {
