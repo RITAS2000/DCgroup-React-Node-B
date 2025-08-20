@@ -1,9 +1,10 @@
 import { Router } from "express";
-// import express from 'express';
-import { getAllUsersController } from "../controllers/users.js";
+import { authenticate } from "../middlewares/authenticate.js";
+import { getCurrentUserController } from "../controllers/users.js";
+import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 
+const router = Router();
 
-export const usersRouter = Router();
-// const jsonParser = express.json();
+router.get('/current', authenticate, ctrlWrapper(getCurrentUserController));
 
-usersRouter.get('/', getAllUsersController);
+export default router;
