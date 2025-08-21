@@ -95,6 +95,9 @@ paths:
   /api/recipes/saved-recipes/{recipeId}:
     delete:
       $ref: '../swagger/path/recipes/{id}/deleteSavedRecipe.yaml'
+  /api/auth/logout:
+    post:
+      $ref: '../swagger/path/auth/logout/post.yaml'
 
 components:
   securitySchemes:
