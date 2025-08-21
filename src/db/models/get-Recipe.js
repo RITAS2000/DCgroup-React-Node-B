@@ -20,10 +20,10 @@ const IngredientEntrySchema = new mongoose.Schema(
 
 const RecipeSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, maxlength: 64 },
-    decr: { type: String, required: true, maxlength: 200 },
-    cookiesTime: { type: Number, required: true, min: 1, max: 360 },
-    cals: { type: Number, min: 1, max: 10000 },
+    title: { type: String, required: true, maxlength: 64 },
+    description: { type: String, required: true, maxlength: 200 },
+    time: { type: Number, required: true, min: 1, max: 360 },
+    calories: { type: Number, min: 1, max: 10000 },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
@@ -35,7 +35,7 @@ const RecipeSchema = new mongoose.Schema(
       validate: (v) => Array.isArray(v) && v.length > 0,
     },
     instruction: { type: String, required: true, maxlength: 1200 },
-    recipeImg: { type: String },
+    photo: { type: String },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

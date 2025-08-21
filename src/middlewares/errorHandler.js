@@ -1,7 +1,8 @@
 import { isHttpError } from 'http-errors';
 
 export function errorHandler(error, req, res, next) {
-  console.log('Error from errorHandler', error.message);
+  console.error('Error from errorHandler:', error); // повний обʼєкт помилки
+  console.error(error.stack); // покажемо стек-трейс, де саме зʼявилася помилка
 
   if (isHttpError(error) === true) {
     return res
