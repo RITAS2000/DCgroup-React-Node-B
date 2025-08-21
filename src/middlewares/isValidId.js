@@ -1,14 +1,14 @@
-import createHttpError from 'http-errors';
-import { isValidObjectId } from 'mongoose';
+// import createHttpError from 'http-errors';
+// import { isValidObjectId } from 'mongoose';
 
-export const isValidId = (req, res, next) => {
-  const { recipeId } = req.params;
-  if (!isValidObjectId(recipeId)) {
-    throw createHttpError(400, 'Bad Request');
-  }
-  next();
-};
-
+// export const isValidId = (req, res, next) => {
+//   const { recipeId } = req.params;
+//   if (!isValidObjectId(recipeId)) {
+//     throw createHttpError(400, 'Bad Request');
+//   }
+//   next();
+// };
+// ====================================================================================
 // import createHttpError from 'http-errors';
 // import { isValidObjectId } from 'mongoose';
 
@@ -28,3 +28,22 @@ export const isValidId = (req, res, next) => {
 
 //   next();
 // };
+//======================================================================================
+
+import createHttpError from 'http-errors';
+import { isValidObjectId } from 'mongoose';
+
+export const isValidId = (req, res, next) => {
+  const { recipeId } = req.params;
+
+  // якщо в цьому роуті немає recipeId – пропускаємо
+  if (!recipeId) {
+    return next();
+  }
+
+  if (!isValidObjectId(recipeId)) {
+    throw createHttpError(400, 'Bad Request');
+  }
+
+  next();
+};
