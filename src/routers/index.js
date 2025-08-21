@@ -17,8 +17,8 @@ router.use('/users', usersRouter);
 router.use('/categories', categoriesRouter);
 router.use('/ingredients', ingredientsRouter);
 
-router.use('/recipes', ByIdrecipesRouter); // працюе
 router.use('/recipes', sevedRouter);
 router.use('/recipes', addRecipeRouter);
+router.use('/recipes', ByIdrecipesRouter); // працюе
 
 export default router;
