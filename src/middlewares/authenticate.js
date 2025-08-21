@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
-import { SessionsCollection } from '../session.js';
-import { UsersCollection } from '../user.js';
+import { SessionsCollection } from '../db/models/session.js';
+import { UsersCollection } from '../db/models/user.js';
 
 export const authenticate = async (req, res, next) => {
   try {
@@ -19,7 +19,8 @@ export const authenticate = async (req, res, next) => {
       return next(createHttpError(401, 'Session not found'));
     }
 
-    const isExpired = Date.now() > new Date(session.accessTokenValidUntil).getTime();
+    const isExpired =
+      Date.now() > new Date(session.accessTokenValidUntil).getTime();
     if (isExpired) {
       return next(createHttpError(401, 'Access token expired'));
     }
@@ -29,14 +30,12 @@ export const authenticate = async (req, res, next) => {
       return next(createHttpError(401, 'User not found'));
     }
 
-    
     req.user = { id: user._id.toString(), name: user.name, email: user.email };
     next();
-  } catch (err) {
+  } catch {
     next(createHttpError(500, 'Authentication error'));
   }
 };
-
 
 // ** трошки виправила код, бо тут треба вказати що нам потрібно далі для фронта. А нам буде потрібно для зареєстрованого користувача мати його імʼя та першу букву імені в кружечку. Імеил залишила чисто щоб був на всякий виподок для майбутнього досвіду. Також ми маємо 3 файли з аутентификацією. На мою думку цей найкращій інші два можна видалити
 //** P.S. OlenaZhuvak

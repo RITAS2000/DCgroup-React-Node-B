@@ -19,26 +19,33 @@ properties:
     maximum: 10000
     example: 150
   category:
-    type: string
-    description: One of predefined category collection
-    example: Soup
+    oneOf:
+      - type: string
+        description: Single category
+        example: 'Soup'
+      - type: array
+        items:
+          type: string
+        description: Array of categories
+        example: ['Soup', 'Vegan']
   ingredients:
-    type: array
-    minItems: 2
-    maxItems: 16
-    items:
-      type: object
-      properties:
-        name:
-          type: string
-          description: One of ingredient collection
-          example: Water
-        amount:
-          type: string
-          example: 500ml
-      required:
-        - name
-        - amount
+    oneOf:
+      - type: array
+        minItems: 2
+        maxItems: 16
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: 'Water'
+            amount:
+              type: string
+              example: '500ml'
+          required: ['name', 'amount']
+      - type: string
+        description: JSON stringified array of ingredients (for multipart/form-data)
+        example: '[{"name":"Water","amount":"500ml"},{"name":"Salt","amount":"1 tsp"}]'
   instructions:
     type: string
     maxLength: 1200

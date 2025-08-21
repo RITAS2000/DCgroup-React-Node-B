@@ -1,11 +1,15 @@
 import Router from 'express';
 
-import { protect } from '../middlewares/auth.middleware.js';
+import { authenticate } from '../middlewares/authenticate.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { postSavedRecipesController } from '../controllers/postSavedRecipesController.js';
 
 const router = Router();
 
-router.post('/saved-recipes', protect, ctrlWrapper(postSavedRecipesController));
+router.post(
+  '/saved-recipes',
+  authenticate,
+  ctrlWrapper(postSavedRecipesController),
+);
 
 export default router;
