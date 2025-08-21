@@ -38,9 +38,12 @@ paths:
           multipart/form-data:
             schema:
               $ref: ../swagger/components/schemas/RecipeInput.yaml
+          application/json:
+            schema:
+              $ref: ../swagger/components/schemas/RecipeInput.yaml
       responses:
         '201':
-          description: Recipe created
+          $ref: ../swagger/components/responses/201.yaml
         '400':
           $ref: ../swagger/components/responses/400.yaml
         '401':
