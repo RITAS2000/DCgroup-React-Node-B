@@ -37,10 +37,17 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: ../swagger/components/schemas/RecipeInput.yaml
+              $ref: ../swagger/components/schemas/recipeInput.yaml
+          application/json:
+            schema:
+              $ref: ../swagger/components/schemas/recipeInput.yaml
       responses:
         '201':
           description: Recipe created
+          content:
+            application/json:
+              schema:
+                $ref: ../swagger/path/recipes/addRecipes.yaml
         '400':
           $ref: ../swagger/components/responses/400.yaml
         '401':
