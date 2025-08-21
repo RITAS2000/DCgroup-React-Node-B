@@ -35,7 +35,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: ../swagger/components/schemas/RecipeInput.yaml
       responses:

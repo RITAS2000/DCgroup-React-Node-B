@@ -32,11 +32,11 @@ const recipeSchema = new mongoose.Schema(
     photo: { type: String, trim: true },
   },
   {
-    collection: 'recepies',
+    collection: 'recipes',
     timestamps: true,
     versionKey: false,
   },
 );
 
-const Recipe = mongoose.model('Recipe', recipeSchema, 'recipes');
+const Recipe = mongoose.model('Recipe', recipeSchema);
 export default Recipe;

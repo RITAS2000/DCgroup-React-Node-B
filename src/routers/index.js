@@ -4,9 +4,10 @@ import authRouter from './auth.js';
 
 import usersRouter from './users.js';
 import categoriesRouter from './categories.js';
-import ingredientsRouter from './ingredients';
+import ingredientsRouter from './ingredients.js';
 import ByIdrecipesRouter from './getRecipeById.routes.js'; // працюе
 import sevedRouter from './addToSaved.js';
+import addRecipeRouter from './addRecipe.js';
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/ingredients', ingredientsRouter);
 
 router.use('/recipes', ByIdrecipesRouter); // працюе
 router.use('/recipes', sevedRouter);
+router.use('/recipes', addRecipeRouter);
 
 export default router;
