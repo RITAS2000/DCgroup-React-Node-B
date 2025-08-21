@@ -324,7 +324,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -334,17 +334,17 @@
                 ],
                 "properties": {
                   "name": {
-                    "description": "User's name",
+                    "description": "Username",
                     "type": "string",
                     "example": "John Doe"
                   },
                   "email": {
-                    "description": "User's email",
+                    "description": "Email",
                     "type": "string",
                     "example": "johndoe@example.com"
                   },
                   "password": {
-                    "description": "User's password",
+                    "description": "Password",
                     "type": "string",
                     "example": "mypassword123"
                   }
@@ -383,8 +383,8 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "400": {
+            "$ref": "#/components/responses/400"
           }
         }
       }
@@ -404,7 +404,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -413,12 +413,12 @@
                 ],
                 "properties": {
                   "email": {
-                    "description": "User's email",
+                    "description": "Email",
                     "type": "string",
                     "example": "johndoe@example.com"
                   },
                   "password": {
-                    "description": "User's password",
+                    "description": "Password",
                     "type": "string",
                     "example": "mypassword123"
                   }
@@ -465,9 +465,6 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
           }
         }
       }

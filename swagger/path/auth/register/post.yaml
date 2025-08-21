@@ -7,7 +7,7 @@ security:
   - bearerAuth: []
 requestBody:
   content:
-    application/json:
+    multipart/form-data:
       schema:
         type: object
         required:
@@ -16,15 +16,15 @@ requestBody:
           - password
         properties:
           name:
-            description: "User's name"
+            description: 'Username'
             type: string
             example: 'John Doe'
           email:
-            description: "User's email"
+            description: 'Email'
             type: string
             example: 'johndoe@example.com'
           password:
-            description: "User's password"
+            description: 'Password'
             type: string
             example: 'mypassword123'
 
@@ -49,5 +49,5 @@ responses:
             data:
               type: object
               $ref: '../../../components/schemas/user.yaml'
-  '401':
-    $ref: '../../../components/responses/401.yaml'
+  '400':
+    $ref: ../../../components/responses/400.yaml
