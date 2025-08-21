@@ -38,15 +38,21 @@ paths:
           multipart/form-data:
             schema:
               $ref: ../swagger/components/schemas/RecipeInput.yaml
+          application/json:
+            schema:
+              $ref: ../swagger/components/schemas/RecipeInput.yaml
       responses:
         '201':
-          description: Recipe created
+          $ref: ../swagger/components/responses/201.yaml
         '400':
           $ref: ../swagger/components/responses/400.yaml
         '401':
           $ref: ../swagger/components/responses/401.yaml
         '500':
           $ref: ../swagger/components/responses/500.yaml
+  /api/recipes/{id}:
+      get:
+        $ref: "../swagger/path/recipes/{id}/get.yaml"
   # ======================================================================================
 
   /api/recipes/own:
@@ -92,6 +98,9 @@ paths:
   /api/recipes/saved-recipes/{recipeId}:
     delete:
       $ref: '../swagger/path/recipes/{id}/deleteSavedRecipe.yaml'
+  /api/auth/logout:
+    post:
+      $ref: '../swagger/path/auth/logout/post.yaml'
 
 components:
   securitySchemes:
