@@ -1,7 +1,6 @@
 import createHttpError from 'http-errors';
 import { getRecipeById } from '../services/getRecipeById.js';
 
-
 export const getRecipeByIdController = async (req, res) => {
   const { recipeId } = req.params;
 
