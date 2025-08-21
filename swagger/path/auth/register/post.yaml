@@ -1,4 +1,5 @@
-tags: -Auth
+tags:
+  - Auth
 summary: register
 operationId: registerUser
 description: 'Register a user with payload'
@@ -6,7 +7,7 @@ security:
   - bearerAuth: []
 requestBody:
   content:
-    aplication/json:
+    application/json:
       schema:
         type: object
         required:
@@ -47,6 +48,6 @@ responses:
               example: Successfully registered a user!
             data:
               type: object
-              $ref: '../../components/schemas/user.yaml'
+              $ref: '../../../components/schemas/user.yaml'
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'

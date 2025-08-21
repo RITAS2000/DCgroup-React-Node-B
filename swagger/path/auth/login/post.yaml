@@ -48,6 +48,6 @@ responses:
                   description: 'Access token for authentication'
                   example: 't2I+B1LDl0DcVBzG058yGmWfWjWaG/l4HXUGhNuI'
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'
   '404':
-    $ref: '../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'
