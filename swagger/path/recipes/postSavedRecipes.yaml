@@ -1,0 +1,45 @@
+tags:
+  - Recipes
+summary: Add saved recipes
+operationId: addSavedRecipes
+description: 'Add recipe to saved (favorite) recipes'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - recipeId
+        properties:
+          recipeId:
+            description: 'Recipe id'
+            type: string
+            example: '6462a6cd4c3d0ddd28897f92'
+responses:
+  '200':
+    description: Recipe added to saved recipes
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Recipe added to saved recipes
+            data:
+              $ref: '../../components/schemas/RecipeInput.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: ../../components/responses/500.yaml

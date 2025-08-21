@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: Recepies app
+  title: Recipes app
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -48,8 +48,9 @@ paths:
         '500':
           $ref: ../swagger/components/responses/500.yaml
 
+  /api/recipes/own:
     get:
-      operationId: getOwnRecipe
+      operationId: getOwnRecipes
       tags: [Recipes]
       summary: Get current user's own recipes
       description: >
@@ -84,6 +85,9 @@ paths:
           $ref: ../swagger/components/responses/401.yaml
         500:
           $ref: ../swagger/components/responses/500.yaml
+  /api/recipes/saved-recipes:
+    post:
+      $ref: '../swagger/path/recipes/postSavedRecipes.yaml'
 
 components:
   securitySchemes:

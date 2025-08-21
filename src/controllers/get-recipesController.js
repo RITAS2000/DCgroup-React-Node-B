@@ -18,7 +18,7 @@ export const getOwnRecipes = async (req, res, next) => {
     ]);
 
     const normalized = items.map((doc) => {
-      const { _id, __v, ...rest } = doc;
+      const { _id, ...rest } = doc;
       return { id: _id.toString(), ...rest };
     });
 

@@ -77,8 +77,11 @@
             "$ref": "#/components/responses/500"
           }
         }
-      },
+      }
+    },
+    "/api/recipes/own": {
       "get": {
+        "operationId": "getOwnRecipes",
         "tags": [
           "Recipes"
         ],
@@ -264,7 +267,7 @@
               },
               "totalItems": {
                 "type": "integer",
-                "example": 42
+                "example": 1
               },
               "totalPages": {
                 "type": "integer",
