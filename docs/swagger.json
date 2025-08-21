@@ -43,46 +43,53 @@
     "/api/recipes": {
       "post": {
         "operationId": "createRecipe",
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Create a new recipe",
         "description": "Private endpoint (JWT). Creates a new user recipe.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "../swagger/components/schemas/recipeInput.yaml"
+                "$ref": "#/components/schemas/RecipeInput"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "../swagger/components/schemas/recipeInput.yaml"
+                "$ref": "#/components/schemas/RecipeInput"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Recipe created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "../swagger/path/recipes/addRecipes.yaml"
-                }
-              }
-            }
+            "$ref": "#/components/responses/201"
           },
-          "400": { "$ref": "#/components/responses/400" },
-          "401": { "$ref": "#/components/responses/401" },
-          "500": { "$ref": "#/components/responses/500" }
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
         }
       }
     },
     "/api/recipes/own": {
       "get": {
         "operationId": "getOwnRecipes",
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Get current user's own recipes",
         "description": "Returns recipes owned by the current user (determined by JWT in the Authorization header).\n",
         "security": [
@@ -135,7 +142,9 @@
     },
     "/api/recipes/saved-recipes": {
       "post": {
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Add saved recipes",
         "operationId": "addSavedRecipes",
         "description": "Add recipe to saved (favorite) recipes",
@@ -149,7 +158,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["recipeId"],
+                "required": [
+                  "recipeId"
+                ],
                 "properties": {
                   "recipeId": {
                     "description": "Recipe id",
@@ -168,7 +179,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -200,7 +215,9 @@
     },
     "/api/recipes/saved-recipes/{recipeId}": {
       "delete": {
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Delete recipe by id from favorite",
         "operationId": "deleteSavedRecipe",
         "description": "Delete recipe by id from favorite",
@@ -248,7 +265,10 @@
     "schemas": {
       "RecipeIngredient": {
         "type": "object",
-        "required": ["ingredient", "ingredientAmount"],
+        "required": [
+          "ingredient",
+          "ingredientAmount"
+        ],
         "properties": {
           "ingredient": {
             "type": "string",
@@ -421,7 +441,10 @@
                   "type": "string"
                 },
                 "description": "Array of categories",
-                "example": ["Soup", "Vegan"]
+                "example": [
+                  "Soup",
+                  "Vegan"
+                ]
               }
             ]
           },
@@ -443,7 +466,10 @@
                       "example": "500ml"
                     }
                   },
-                  "required": ["name", "amount"]
+                  "required": [
+                    "name",
+                    "amount"
+                  ]
                 }
               },
               {
@@ -475,13 +501,73 @@
       }
     },
     "responses": {
+      "201": {
+        "description": "Recipe created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 201
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Recipe created successfully"
+                },
+                "data": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/RecipeInput"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "68a5a9568dd790ddd800136c"
+                        },
+                        "user": {
+                          "type": "string",
+                          "example": "64f06a1b6f1c2d0012345678"
+                        },
+                        "photo": {
+                          "type": "string",
+                          "example": "/uploads/1755691219645_img.jpg"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
       "400": {
         "description": "Bad Request",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -502,7 +588,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -523,7 +612,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -535,7 +628,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -554,7 +649,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
