@@ -8,6 +8,7 @@ import ingredientsRouter from './ingredients.js';
 import ByIdrecipesRouter from './getRecipeById.routes.js'; // працюе
 import sevedRouter from './addToSaved.js';
 import addRecipeRouter from './addRecipe.js';
+import searchRecipesRouter from './searchRecipes.js';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use('/ingredients', ingredientsRouter);
 router.use('/recipes', ByIdrecipesRouter); // працюе
 router.use('/recipes', sevedRouter);
 router.use('/recipes', addRecipeRouter);
+router.use('/recipes', searchRecipesRouter);
 
 export default router;
