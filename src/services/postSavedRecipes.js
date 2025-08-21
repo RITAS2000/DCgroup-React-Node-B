@@ -1,5 +1,5 @@
 import { UsersCollection } from '../db/models/user.js';
-import Recipe from '../models/addRecipe.js';
+import Recipe from '../db/models/addRecipe.js';
 
 export const postSavedRecipes = async (recipeId, userId) => {
   const recipe = await Recipe.findOne({ _id: recipeId, user: userId });
