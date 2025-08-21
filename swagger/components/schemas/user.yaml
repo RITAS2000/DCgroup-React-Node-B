@@ -1,0 +1,23 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+properties:
+  _id:
+    description: "Contact's ID"
+    type: string
+    example: 68a622a7cd40d43441c362f1
+
+  name:
+    description: "User's name"
+    type: string
+    minLength: 3
+    maxLength: 16
+    example: 'Anastasia'
+
+  email:
+    description: "User's email address"
+    type: string
+    format: email
+    example: 'testuser@example.com'
