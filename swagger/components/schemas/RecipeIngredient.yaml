@@ -1,0 +1,12 @@
+type: object
+required: [ingredient, ingredientAmount]
+properties:
+  ingredient:
+    type: string
+    description: Ingredient ID (one of ingredient collection)
+    example: '66b8e6b2f1c8a5f2d1a9c111'
+  ingredientAmount:
+    type: string
+    minLength: 2
+    maxLength: 16
+    example: '100 g'
