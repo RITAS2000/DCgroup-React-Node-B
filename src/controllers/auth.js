@@ -1,4 +1,5 @@
 
+import { FIFTEEN_MINUTES } from '../constants/index.js';
 import { registerUser,logoutUser,loginUser } from '../services/auth.js';
 
 
@@ -17,7 +18,7 @@ export const loginUserController = async (req, res) => {
 
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: new Date(Date.now()),
+    expires: new Date(Date.now() + FIFTEEN_MINUTES),
   });
   res.json({
     status: 200,
