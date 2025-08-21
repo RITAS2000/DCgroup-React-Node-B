@@ -51,9 +51,8 @@ paths:
         '500':
           $ref: ../swagger/components/responses/500.yaml
   /api/recipes/{id}:
-      get:
-        $ref: "../swagger/path/recipes/{id}/get.yaml"
-  # ======================================================================================
+    get:
+      $ref: '../swagger/path/recipes/{id}/get.yaml'
 
   /api/recipes/own:
     get:

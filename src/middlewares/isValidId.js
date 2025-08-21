@@ -12,7 +12,7 @@
 import createHttpError from 'http-errors';
 import { isValidObjectId } from 'mongoose';
 
-const skipIds = ['/own']; // маршрути, що не перевіряємо
+const skipIds = ['/own', '/saved-recipes']; // маршрути, що не перевіряємо
 
 export const isValidId = (req, res, next) => {
   const { recipeId } = req.params;
