@@ -1,0 +1,44 @@
+tags:
+  - Categories
+summary: Get categories
+description: Returns a list of recipe categories.
+operationId: getCategories
+security: []
+responses:
+  '200':
+    description: List of categories
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            data:
+              type: array
+              items:
+                type: object
+                description: Category document
+                properties:
+                  _id:
+                    type: string
+                    description: Category ID (Mongo ObjectId)
+                    example: '66b8e6b2f1c8a5f2d1a9c777'
+                  name:
+                    type: string
+                    description: Unique category name
+                    example: 'Dessert'
+        examples:
+          success:
+            value:
+              status: 200
+              data:
+                - _id: '66b8e6b2f1c8a5f2d1a9c777'
+                  name: 'Dessert'
+                - _id: '66b8e6b2f1c8a5f2d1a9c778'
+                  name: 'Soup'
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '500':
+    $ref: '../../components/responses/500.yaml'

@@ -1,0 +1,44 @@
+tags:
+  - Ingredients
+summary: Get ingredients
+description: Returns a list of ingredients.
+operationId: getIngredients
+security: []
+responses:
+  '200':
+    description: List of ingredients
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            data:
+              type: array
+              items:
+                type: object
+                description: Ingredient document
+                properties:
+                  _id:
+                    type: string
+                    description: Ingredient ID (Mongo ObjectId)
+                    example: '66b8e6b2f1c8a5f2d1a9c111'
+                  name:
+                    type: string
+                    description: Unique ingredient name
+                    example: 'Sugar'
+        examples:
+          success:
+            value:
+              status: 200
+              data:
+                - _id: '66b8e6b2f1c8a5f2d1a9c111'
+                  name: 'Sugar'
+                - _id: '66b8e6b2f1c8a5f2d1a9c112'
+                  name: 'Salt'
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '500':
+    $ref: '../../components/responses/500.yaml'
