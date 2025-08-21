@@ -35,7 +35,7 @@ const RecipeSchema = new mongoose.Schema(
       validate: (v) => Array.isArray(v) && v.length > 0,
     },
     instruction: { type: String, required: true, maxlength: 1200 },
-    photo: { type: String },
+    thumb: { type: String },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

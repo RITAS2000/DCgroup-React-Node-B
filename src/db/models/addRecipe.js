@@ -29,7 +29,7 @@ const recipeSchema = new mongoose.Schema(
       required: true,
     },
     instructions: { type: String, required: true, trim: true, maxlength: 1200 },
-    photo: { type: String, trim: true },
+    thumb: { type: String, trim: true },
   },
   {
     collection: 'recipes',
