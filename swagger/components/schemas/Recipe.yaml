@@ -31,7 +31,6 @@ properties:
     example: 'Dessert'
   area:
     type: string
-    nullable: true
     description: 'Cuisine/area; optional'
     example: 'British'
   instructions:
@@ -41,7 +40,6 @@ properties:
   thumb:
     type: string
     format: uri
-    nullable: true
     description: "Image URL (field name in DB is 'thumb')"
     example: 'https://ftp.goit.study/img/so-yummy/preview/Battenberg%20Cake.jpg'
   ingredients:
