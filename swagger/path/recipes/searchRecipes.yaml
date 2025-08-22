@@ -1,5 +1,4 @@
-get:
-  operationId: searchRecipes
+operationId: searchRecipes
   tags: [RecipesSearch]
   summary: Search recipes by title, category, or ingredients
   description: >
@@ -47,3 +46,4 @@ get:
       $ref: '../../components/responses/404.yaml'
     '500':
       $ref: '../../components/responses/500.yaml'
+

@@ -57,7 +57,8 @@ paths:
       $ref: '../swagger/path/auth/logout/post.yaml'
 
   /api/recipes/search:
-    $ref: ../swagger/path/recipes/searchRecipes.yaml
+    get:
+      $ref: ../swagger/path/recipes/searchRecipes.yaml
 
 components:
   securitySchemes:
