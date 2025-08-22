@@ -57,10 +57,16 @@ responses:
                   example: 12
                 totalItems:
                   type: integer
-                  example: 50
+                  example: 1
                 totalPages:
                   type: integer
-                  example: 5
+                  example: 1
+                hasPreviousPage:
+                  type: boolean
+                  example: false
+                hasNextPage:
+                  type: boolean
+                  example: false
   '401':
     $ref: '../../components/responses/401.yaml'
   '404':
