@@ -42,7 +42,9 @@
   "paths": {
     "/api/recipes": {
       "post": {
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Create a new recipe",
         "operationId": "createRecipe",
         "description": "Create and publish a new recipe",
@@ -85,7 +87,9 @@
     "/api/recipes/own": {
       "get": {
         "operationId": "getOwnRecipes",
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Get current user's own recipes",
         "description": "Returns recipes owned by the current user (determined by JWT in the Authorization header).\n",
         "security": [
@@ -138,7 +142,9 @@
     },
     "/api/recipes/saved-recipes": {
       "post": {
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Add saved recipes",
         "operationId": "addSavedRecipes",
         "description": "Add recipe to saved (favorite) recipes",
@@ -152,7 +158,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["recipeId"],
+                "required": [
+                  "recipeId"
+                ],
                 "properties": {
                   "recipeId": {
                     "description": "Recipe id",
@@ -171,7 +179,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -203,7 +215,9 @@
     },
     "/api/recipes/saved-recipes/{recipeId}": {
       "delete": {
-        "tags": ["Recipes"],
+        "tags": [
+          "Recipes"
+        ],
         "summary": "Delete recipe by id from favorite",
         "operationId": "deleteSavedRecipe",
         "description": "Delete recipe by id from favorite",
@@ -241,7 +255,9 @@
     },
     "/api/auth/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "register",
         "operationId": "registerUser",
         "description": "Register a user with payload",
@@ -255,7 +271,11 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "password"],
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "name": {
                     "description": "Username",
@@ -284,7 +304,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -311,7 +335,9 @@
     },
     "/api/auth/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Login",
         "operationId": "loginUser",
         "description": "Login user with email and password",
@@ -325,7 +351,10 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
+                "required": [
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "description": "Email",
@@ -349,7 +378,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -382,7 +415,9 @@
     },
     "/api/auth/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Logout",
         "operationId": "logout",
         "description": "Logs out a user",
@@ -413,7 +448,10 @@
     "schemas": {
       "RecipeIngredient": {
         "type": "object",
-        "required": ["ingredient", "ingredientAmount"],
+        "required": [
+          "ingredient",
+          "ingredientAmount"
+        ],
         "properties": {
           "ingredient": {
             "type": "string",
@@ -506,29 +544,31 @@
           "name": {
             "type": "string",
             "maxLength": 64,
-            "example": "Test Soup"
+            "example": "Pasta Carbonara"
           },
           "decr": {
             "type": "string",
             "maxLength": 200,
-            "example": "Simple test recipe"
+            "example": "Classic Italian pasta with eggs, cheese and pancetta"
           },
           "cookiesTime": {
             "type": "integer",
             "minimum": 1,
             "maximum": 360,
-            "example": 20
+            "example": 25,
+            "description": "time in minutes"
           },
           "cals": {
             "type": "integer",
             "minimum": 1,
             "maximum": 10000,
-            "example": 150
+            "example": 450,
+            "description": "calories amount"
           },
           "category": {
             "type": "string",
             "description": "ID from category collection",
-            "example": "66b8e6b2f1c8a5f2d1a9c777"
+            "example": "6462a6cd4c3d0ddd28897f8d"
           },
           "ingredients": {
             "oneOf": [
@@ -543,7 +583,7 @@
               {
                 "type": "string",
                 "description": "JSON stringified array of RecipeIngredient (for multipart/form-data)",
-                "example": "[{\"ingredient\":\"66b8e6b2f1c8a5f2d1a9c111\",\"ingredientAmount\":\"100 g\"},{\"ingredient\":\"66b8e6b2f1c8a5f2d1a9c112\",\"ingredientAmount\":\"1 tsp\"}]"
+                "example": "[{\"ingredient\":\"640c2dd963a319ea671e37aa\",\"ingredientAmount\":\"100 g\"},\n {\"ingredient\":\"640c2dd963a319ea671e37f5\",\"ingredientAmount\":\"200 g\"}]\n"
               }
             ]
           },
@@ -552,7 +592,7 @@
             "maxLength": 1200,
             "example": "Boil water. Add salt."
           },
-          "photo": {
+          "recipeImg": {
             "type": "string",
             "format": "binary",
             "description": "Recipe image file (max 2MB)"
@@ -617,7 +657,11 @@
       },
       "user": {
         "type": "object",
-        "required": ["_id", "name", "email"],
+        "required": [
+          "_id",
+          "name",
+          "email"
+        ],
         "properties": {
           "_id": {
             "description": "Contact's ID",
@@ -647,7 +691,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -671,7 +719,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -692,7 +743,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -713,7 +767,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -725,7 +783,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -744,7 +804,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
