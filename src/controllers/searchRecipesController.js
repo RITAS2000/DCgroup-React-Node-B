@@ -18,7 +18,9 @@ export const searchRecipesController = async (req, res, next) => {
       filter.ingredients = { $elemMatch: { name: ingredient } };
     }
 
-    const result = await searchRecipesService(filter, { page });
+    const result = await searchRecipesService(filter, {
+      page: Number(page) || 1,
+    });
 
     if (!result.recipes.length) {
       return res.status(404).json({
@@ -29,8 +31,16 @@ export const searchRecipesController = async (req, res, next) => {
 
     return res.status(200).json({
       status: 200,
-      message: 'Recipes fetched successfully',
-      data: result,
+      message: 'Successfully found own recipes!',
+      data: {
+        data: result.data,
+        page: result.page,
+        perPage: result.perPage,
+        totalItems: result.totalItems,
+        totalPages: result.totalPages,
+        hasPreviousPage: result.hasPreviousPage,
+        hasNextPage: result.hasNextPage,
+      },
     });
   } catch (err) {
     next(err);
