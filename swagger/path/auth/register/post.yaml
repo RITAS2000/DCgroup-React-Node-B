@@ -1,6 +1,6 @@
 tags:
   - Auth
-summary: register
+summary: Register
 operationId: registerUser
 description: 'Register a user with payload'
 security:
@@ -50,4 +50,8 @@ responses:
               type: object
               $ref: '../../../components/schemas/user.yaml'
   '400':
-    $ref: ../../../components/responses/400.yaml
+    $ref: ../../../components/responses/400-auth.yaml
+  '409':
+    $ref: ../../../components/responses/409-auth.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

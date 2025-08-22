@@ -84,267 +84,6 @@
         }
       }
     },
-
-    "/api/users/current": {
-      "get": {
-        "operationId": "GetCurrentUser",
-        "tags": [
-          "Users"
-        ],
-        "summary": "Get current user",
-        "description": "Returns the currently authenticated user (password is omitted by the model).",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Current user profile",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/user"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "savedRecipes": {
-                          "type": "array",
-                          "description": "IDs of recipes saved by the current user",
-                          "items": {
-                            "type": "string",
-                            "example": "66c4b1f2a2e123456789abcd"
-                          }
-                        }
-                      }
-                    }
-                  ]
-                },
-                "examples": {
-                  "success": {
-                    "value": {
-                      "_id": "68a622a7cd40d43441c362f1",
-                      "name": "Max",
-                      "email": "max@example.com",
-                      "savedRecipes": [
-                        "66c4b1f2a2e123456789abcd",
-                        "66c4b1f2a2e123456789abce"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          }
-        }
-      }
-    },
-    "/api/categories": {
-      "get": {
-        "tags": [
-          "Categories"
-        ],
-        "summary": "Get categories",
-        "description": "Returns a list of recipe categories.",
-        "operationId": "getCategories",
-        "security": [],
-        "responses": {
-          "200": {
-            "description": "List of categories",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "description": "Category document",
-                        "properties": {
-                          "_id": {
-                            "type": "string",
-                            "description": "Category ID (Mongo ObjectId)",
-                            "example": "66b8e6b2f1c8a5f2d1a9c777"
-                          },
-                          "name": {
-                            "type": "string",
-                            "description": "Unique category name",
-                            "example": "Dessert"
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "examples": {
-                  "success": {
-                    "value": {
-                      "status": 200,
-                      "data": [
-                        {
-                          "_id": "66b8e6b2f1c8a5f2d1a9c777",
-                          "name": "Dessert"
-                        },
-                        {
-                          "_id": "66b8e6b2f1c8a5f2d1a9c778",
-                          "name": "Soup"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        }
-      }
-    },
-    "/api/ingredients": {
-      "get": {
-        "tags": [
-          "Ingredients"
-        ],
-        "summary": "Get ingredients",
-        "description": "Returns a list of ingredients.",
-        "operationId": "getIngredients",
-        "security": [],
-        "responses": {
-          "200": {
-            "description": "List of ingredients",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "description": "Ingredient document",
-                        "properties": {
-                          "_id": {
-                            "type": "string",
-                            "description": "Ingredient ID (Mongo ObjectId)",
-                            "example": "66b8e6b2f1c8a5f2d1a9c111"
-                          },
-                          "name": {
-                            "type": "string",
-                            "description": "Unique ingredient name",
-                            "example": "Sugar"
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "examples": {
-                  "success": {
-                    "value": {
-                      "status": 200,
-                      "data": [
-                        {
-                          "_id": "66b8e6b2f1c8a5f2d1a9c111",
-                          "name": "Sugar"
-                        },
-                        {
-                          "_id": "66b8e6b2f1c8a5f2d1a9c112",
-                          "name": "Salt"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        }
-      }
-    },
-    "/api/recipes/{id}": {
-      "get": {
-        "tags": [
-          "Recipes"
-        ],
-        "summary": "Get recipes by id",
-        "operationId": "getRecipe",
-        "description": "Get recipe by id",
-        "security": [],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get recipe by id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully found recipe with id 65ca67e7ae7f10c88b598384!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/RecipeInput"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
-          }
-        }
-      }
-    },
-
-
     "/api/recipes/own": {
       "get": {
         "operationId": "getOwnRecipes",
@@ -402,6 +141,109 @@
       }
     },
     "/api/recipes/saved-recipes": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get saved recipes",
+        "operationId": "getSavedRecipes",
+        "description": "Get all recipes saved (favorite) by the logged-in user with pagination",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "default": 12
+            },
+            "description": "Number of items per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User saved recipes fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User saved recipes fetched successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Recipe"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 12
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 50
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 5
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Recipes"
@@ -519,7 +361,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "register",
+        "summary": "Register",
         "operationId": "registerUser",
         "description": "Register a user with payload",
         "security": [
@@ -589,7 +431,13 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/400"
+            "$ref": "#/components/responses/400-auth"
+          },
+          "409": {
+            "$ref": "#/components/responses/409-auth"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -670,6 +518,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -693,6 +544,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -767,7 +621,6 @@
           },
           "area": {
             "type": "string",
-            "nullable": true,
             "description": "Cuisine/area; optional",
             "example": "British"
           },
@@ -779,7 +632,6 @@
           "thumb": {
             "type": "string",
             "format": "uri",
-            "nullable": true,
             "description": "Image URL (field name in DB is 'thumb')",
             "example": "https://ftp.goit.study/img/so-yummy/preview/Battenberg%20Cake.jpg"
           },
@@ -1084,6 +936,46 @@
                 "message": {
                   "type": "string",
                   "example": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400-auth": {
+        "description": "Bad Request - invalid email or password",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Invalid email or password"
+                }
+              }
+            }
+          }
+        }
+      },
+      "409-auth": {
+        "description": "Conflict - email already registered",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Email is already registered"
                 }
               }
             }
