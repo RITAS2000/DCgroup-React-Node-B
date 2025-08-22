@@ -30,7 +30,7 @@ properties:
         minItems: 2
         maxItems: 16
         items:
-          $ref: '#/components/schemas/RecipeIngredient'
+          $ref: RecipeIngredient.yaml
       - type: string
         description: JSON stringified array of RecipeIngredient (for multipart/form-data)
         example: >
