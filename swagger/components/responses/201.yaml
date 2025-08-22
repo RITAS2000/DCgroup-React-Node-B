@@ -12,22 +12,4 @@ content:
           type: string
           example: Recipe created successfully
         data:
-          allOf:
-            - $ref: '../schemas/RecipeInput.yaml'
-            - type: object
-              properties:
-                _id:
-                  type: string
-                  example: 68a5a9568dd790ddd800136c
-                user:
-                  type: string
-                  example: 64f06a1b6f1c2d0012345678
-                photo:
-                  type: string
-                  example: /uploads/1755691219645_img.jpg
-                createdAt:
-                  type: string
-                  format: date-time
-                updatedAt:
-                  type: string
-                  format: date-time
+          $ref: '../schemas/Recipe.yaml'
