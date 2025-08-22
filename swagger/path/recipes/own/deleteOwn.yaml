@@ -17,6 +17,8 @@ responses:
     description: 'Recipe successfully deleted. Notifications have been sent to all users who saved this recipe.'
   '401':
     $ref: ../../../components/responses/401.yaml
+  '403':
+    $ref: '../../../components/responses/403.yaml'
   '404':
     description: Not found
     content:
