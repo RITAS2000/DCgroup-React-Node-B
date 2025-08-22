@@ -24,7 +24,6 @@ export const searchRecipesController = async (req, res, next) => {
       return res.status(404).json({
         status: 404,
         message: 'Recipe not found',
-        data: { message: 'Recipe not found' },
       });
     }
 

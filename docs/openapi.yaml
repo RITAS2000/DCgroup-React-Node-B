@@ -18,6 +18,8 @@ tags:
     description: Ingredients
   - name: Recipes
     description: Recipes
+  - name: RecipesSearch
+    description: Recipes search
 
 servers:
   - url: http://localhost:3000
@@ -54,6 +56,9 @@ paths:
     post:
       $ref: '../swagger/path/auth/logout/post.yaml'
 
+  /api/recipes/search:
+    $ref: ../swagger/path/recipes/searchRecipes.yaml
+
 components:
   securitySchemes:
     bearerAuth:
@@ -73,3 +78,6 @@ components:
 
     OwnRecipesResponse:
       $ref: ../swagger/components/schemas/OwnRecipesResponse.yaml
+
+    SearchRecipes:
+      $ref: '../swagger/components/schemas/Recipe.yaml'
