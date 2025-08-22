@@ -1,0 +1,28 @@
+description: Successfully fetched recipes
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: 'Recipes fetched successfully'
+        data:
+          type: object
+          properties:
+            recipes:
+              type: array
+              items:
+                $ref: '../schemas/Recipe.yaml'
+            total:
+              type: integer
+              example: 12
+            page:
+              type: integer
+              example: 1
+            totalPages:
+              type: integer
+              example: 2
