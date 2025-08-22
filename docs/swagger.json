@@ -42,12 +42,12 @@
   "paths": {
     "/api/recipes": {
       "post": {
-        "operationId": "createRecipe",
         "tags": [
           "Recipes"
         ],
         "summary": "Create a new recipe",
-        "description": "Private endpoint (JWT). Creates a new user recipe.",
+        "operationId": "createRecipe",
+        "description": "Create and publish a new recipe",
         "security": [
           {
             "bearerAuth": []

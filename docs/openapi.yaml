@@ -26,43 +26,7 @@ servers:
 paths:
   /api/recipes:
     post:
-      operationId: createRecipe
-      tags: [Recipes]
-      summary: Create a new recipe
-      description: Private endpoint (JWT). Creates a new user recipe.
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: ../swagger/components/schemas/RecipeInput.yaml
-          application/json:
-            schema:
-              $ref: ../swagger/components/schemas/RecipeInput.yaml
-      responses:
-        '201':
-          $ref: ../swagger/components/responses/201.yaml
-        '400':
-          $ref: ../swagger/components/responses/400.yaml
-        '401':
-          $ref: ../swagger/components/responses/401.yaml
-        '500':
-          $ref: ../swagger/components/responses/500.yaml
-  /api/users/current:
-    get:
-      $ref: ../swagger/path/usersCurrent/get.yaml
-  /api/categories:
-    get: 
-      $ref: '../swagger/path/categories/get.yaml'
-  /api/ingredients:
-    get: 
-      $ref: '../swagger/path/ingredients/get.yaml'
-  /api/recipes/{id}:
-    get:
-      $ref: '../swagger/path/recipes/{id}/get.yaml'
-
+      $ref: '../swagger/path/recipes/addRecipes.yaml'
   /api/recipes/own:
     get:
       $ref: '../swagger/path/recipes/own/get.yaml'
@@ -98,6 +62,65 @@ components:
 
     Recipe:
       $ref: ../swagger/components/schemas/Recipe.yaml
+      type: object
+      required:
+        [
+          name,
+          decr,
+          cookiesTime,
+          category,
+          ingredients,
+          instruction,
+          owner,
+          createdAt,
+        ]
+      properties:
+        id: { type: string, example: '66b8e6b2f1c8a5f2d1a9c222' }
+        name: { type: string, maxLength: 64, example: 'Pasta Carbonara' }
+        decr:
+          {
+            type: string,
+            maxLength: 200,
+            example: 'Classic Italian pasta with eggs, cheese and pancetta',
+          }
+        cookiesTime:
+          {
+            type: integer,
+            minimum: 1,
+            maximum: 360,
+            example: 25,
+            description: time in minutes,
+          }
+        cals: { type: integer, minimum: 1, maximum: 10000, example: 450 }
+        category:
+          {
+            type: string,
+            example: '66b8e6b2f1c8a5f2d1a9c777',
+            description: ID from the category collection,
+          }
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeIngredient'
+        instruction:
+          {
+            type: string,
+            maxLength: 1200,
+            example: 'Boil pasta, fry pancetta, mix with eggs and cheese...',
+          }
+        recipeImg:
+          {
+            type: string,
+            format: uri,
+            example: 'https://cdn.example.com/images/recipe.jpg',
+          }
+        owner: { type: string, example: '66b8e6b2f1c8a5f2d1a9c999' }
+        createdAt:
+          {
+            type: string,
+            format: date-time,
+            example: '2025-08-20T12:34:56.000Z',
+          }
 
     OwnRecipesResponse:
       $ref: ../swagger/components/schemas/OwnRecipesResponse.yaml
