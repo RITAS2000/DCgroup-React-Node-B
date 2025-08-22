@@ -1,4 +1,3 @@
-
 import { model, Schema } from 'mongoose';
 
 const usersSchema = new Schema(
@@ -9,7 +8,7 @@ const usersSchema = new Schema(
     savedRecipes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'recipes',
+        ref: 'Recipe',
       },
     ],
   },
