@@ -26,43 +26,7 @@ servers:
 paths:
   /api/recipes:
     post:
-      operationId: createRecipe
-      tags: [Recipes]
-      summary: Create a new recipe
-      description: Private endpoint (JWT). Creates a new user recipe.
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: ../swagger/components/schemas/RecipeInput.yaml
-          application/json:
-            schema:
-              $ref: ../swagger/components/schemas/RecipeInput.yaml
-      responses:
-        '201':
-          $ref: ../swagger/components/responses/201.yaml
-        '400':
-          $ref: ../swagger/components/responses/400.yaml
-        '401':
-          $ref: ../swagger/components/responses/401.yaml
-        '500':
-          $ref: ../swagger/components/responses/500.yaml
-  /api/users/current:
-    get:
-      $ref: ../swagger/path/usersCurrent/get.yaml
-  /api/categories:
-    get: 
-      $ref: '../swagger/path/categories/get.yaml'
-  /api/ingredients:
-    get: 
-      $ref: '../swagger/path/ingredients/get.yaml'
-  /api/recipes/{id}:
-    get:
-      $ref: '../swagger/path/recipes/{id}/get.yaml'
-
+      $ref: '../swagger/path/recipes/addRecipes.yaml'
   /api/recipes/own:
     get:
       $ref: '../swagger/path/recipes/own/get.yaml'
@@ -98,6 +62,9 @@ components:
 
     Recipe:
       $ref: ../swagger/components/schemas/Recipe.yaml
+
+    RecipeInput:
+      $ref: ../swagger/components/schemas/RecipeInput.yaml
 
     OwnRecipesResponse:
       $ref: ../swagger/components/schemas/OwnRecipesResponse.yaml

@@ -1,5 +1,5 @@
 import createHttpError from 'http-errors';
-import { UsersCollection } from '../models/user.js';
+import { UsersCollection } from '../db/models/user.js';
 
 export const getSavedRecipesController = async (req, res) => {
   const userId = req.user.id;

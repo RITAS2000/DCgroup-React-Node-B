@@ -13,6 +13,8 @@ import recipesOwnRouter from './recipes.js';
 
 import searchRecipesRouter from './searchRecipes.js';
 
+import getSavedRouter from './getSavedRecipes.js';
+
 const router = Router();
 
 router.use('/auth', authRouter);
@@ -27,6 +29,8 @@ router.use('/recipes', delSavedRecipe);
 router.use('/recipes', sevedRouter);
 
 router.use('/recipes', searchRecipesRouter);
+
+router.use('/recipes', getSavedRouter);
 
 router.use('/recipes', ByIdrecipesRouter); // працюе
 

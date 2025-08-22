@@ -2,7 +2,7 @@ tags:
   - Recipes
 summary: Create a new recipe
 operationId: createRecipe
-description: 'Create and publish a new recipe'
+description: Create and publish a new recipe
 security:
   - bearerAuth: []
 requestBody:
@@ -10,64 +10,13 @@ requestBody:
   content:
     multipart/form-data:
       schema:
-        $ref: '../../components/schemas/recipeInput.yaml'
+        $ref: '../../components/schemas/RecipeInput.yaml'
     application/json:
       schema:
-        $ref: '../../components/schemas/recipeInput.yaml'
+        $ref: '../../components/schemas/RecipeInput.yaml'
 responses:
   '201':
-    description: Recipe created
-    content:
-      application/json:
-        schema:
-          type: object
-          required: [status, message, data]
-          properties:
-            status:
-              type: integer
-              example: 201
-            message:
-              type: string
-              example: Recipe created successfully
-            data:
-              type: object
-              properties:
-                _id:
-                  type: string
-                  example: 68a5a9568dd790ddd800136c
-                user:
-                  type: string
-                  example: 64f06a1b6f1c2d0012345678
-                title:
-                  type: string
-                description:
-                  type: string
-                time:
-                  type: integer
-                calories:
-                  type: integer
-                category:
-                  type: string
-                  example: Soup
-                ingredients:
-                  type: array
-                  items:
-                    type: object
-                    required: [name, amount]
-                    properties:
-                      name: { type: string, example: Water }
-                      amount: { type: string, example: 500ml }
-                instructions:
-                  type: string
-                photo:
-                  type: string
-                  example: /uploads/1755691219645_img.jpg
-                createdAt:
-                  type: string
-                  format: date-time
-                updatedAt:
-                  type: string
-                  format: date-time
+    $ref: '../../components/responses/201.yaml'
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':

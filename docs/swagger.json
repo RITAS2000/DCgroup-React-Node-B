@@ -42,12 +42,12 @@
   "paths": {
     "/api/recipes": {
       "post": {
-        "operationId": "createRecipe",
         "tags": [
           "Recipes"
         ],
         "summary": "Create a new recipe",
-        "description": "Private endpoint (JWT). Creates a new user recipe.",
+        "operationId": "createRecipe",
+        "description": "Create and publish a new recipe",
         "security": [
           {
             "bearerAuth": []
@@ -84,6 +84,7 @@
         }
       }
     },
+
     "/api/users/current": {
       "get": {
         "operationId": "GetCurrentUser",
@@ -342,6 +343,8 @@
         }
       }
     },
+
+
     "/api/recipes/own": {
       "get": {
         "operationId": "getOwnRecipes",
@@ -803,6 +806,75 @@
           }
         }
       },
+      "RecipeInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "example": "Pasta Carbonara"
+          },
+          "decr": {
+            "type": "string",
+            "maxLength": 200,
+            "example": "Classic Italian pasta with eggs, cheese and pancetta"
+          },
+          "cookiesTime": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 360,
+            "example": 25,
+            "description": "time in minutes"
+          },
+          "cals": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 450,
+            "description": "calories amount"
+          },
+          "category": {
+            "type": "string",
+            "description": "ID from category collection",
+            "example": "6462a6cd4c3d0ddd28897f8d"
+          },
+          "ingredients": {
+            "oneOf": [
+              {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 16,
+                "items": {
+                  "$ref": "#/components/schemas/RecipeIngredient"
+                }
+              },
+              {
+                "type": "string",
+                "description": "JSON stringified array of RecipeIngredient (for multipart/form-data)",
+                "example": "[{\"ingredient\":\"640c2dd963a319ea671e37aa\",\"ingredientAmount\":\"100 g\"},\n {\"ingredient\":\"640c2dd963a319ea671e37f5\",\"ingredientAmount\":\"200 g\"}]\n"
+              }
+            ]
+          },
+          "instruction": {
+            "type": "string",
+            "maxLength": 1200,
+            "example": "Boil water. Add salt."
+          },
+          "recipeImg": {
+            "type": "string",
+            "format": "binary",
+            "description": "Recipe image file (max 2MB)"
+          }
+        },
+        "required": [
+          "name",
+          "decr",
+          "cookiesTime",
+          "category",
+          "ingredients",
+          "instruction"
+        ]
+      },
       "OwnRecipesResponse": {
         "type": "object",
         "properties": {
@@ -850,102 +922,6 @@
             }
           }
         }
-      },
-      "RecipeInput": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "maxLength": 64,
-            "example": "Test Soup"
-          },
-          "description": {
-            "type": "string",
-            "maxLength": 200,
-            "example": "Simple test recipe"
-          },
-          "time": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 360,
-            "example": 20
-          },
-          "calories": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 10000,
-            "example": 150
-          },
-          "category": {
-            "oneOf": [
-              {
-                "type": "string",
-                "description": "Single category",
-                "example": "Soup"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "description": "Array of categories",
-                "example": [
-                  "Soup",
-                  "Vegan"
-                ]
-              }
-            ]
-          },
-          "ingredients": {
-            "oneOf": [
-              {
-                "type": "array",
-                "minItems": 2,
-                "maxItems": 16,
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "Water"
-                    },
-                    "amount": {
-                      "type": "string",
-                      "example": "500ml"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "amount"
-                  ]
-                }
-              },
-              {
-                "type": "string",
-                "description": "JSON stringified array of ingredients (for multipart/form-data)",
-                "example": "[{\"name\":\"Water\",\"amount\":\"500ml\"},{\"name\":\"Salt\",\"amount\":\"1 tsp\"}]"
-              }
-            ]
-          },
-          "instructions": {
-            "type": "string",
-            "maxLength": 1200,
-            "example": "Boil water. Add salt."
-          },
-          "photo": {
-            "type": "string",
-            "format": "binary",
-            "description": "Recipe image file (max 2MB)"
-          }
-        },
-        "required": [
-          "title",
-          "description",
-          "time",
-          "category",
-          "ingredients",
-          "instructions"
-        ]
       },
       "user": {
         "type": "object",
@@ -998,36 +974,7 @@
                   "example": "Recipe created successfully"
                 },
                 "data": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/RecipeInput"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "68a5a9568dd790ddd800136c"
-                        },
-                        "user": {
-                          "type": "string",
-                          "example": "64f06a1b6f1c2d0012345678"
-                        },
-                        "photo": {
-                          "type": "string",
-                          "example": "/uploads/1755691219645_img.jpg"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      }
-                    }
-                  ]
+                  "$ref": "#/components/schemas/Recipe"
                 }
               }
             }
