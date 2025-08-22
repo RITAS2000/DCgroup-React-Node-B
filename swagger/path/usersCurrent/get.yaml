@@ -1,3 +1,4 @@
+operationId: GetCurrentUser
 tags:
   - Users
 summary: Get current user
@@ -23,11 +24,11 @@ responses:
         examples:
           success:
             value:
-              _id: "68a622a7cd40d43441c362f1"
-              name: "Max"
-              email: "max@example.com"
+              _id: '68a622a7cd40d43441c362f1'
+              name: 'Max'
+              email: 'max@example.com'
               savedRecipes:
-                - "66c4b1f2a2e123456789abcd"
-                - "66c4b1f2a2e123456789abce"
+                - '66c4b1f2a2e123456789abcd'
+                - '66c4b1f2a2e123456789abce'
   '401':
     $ref: '../../components/responses/401.yaml'
