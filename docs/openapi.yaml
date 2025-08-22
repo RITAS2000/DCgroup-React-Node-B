@@ -31,6 +31,8 @@ paths:
     get:
       $ref: '../swagger/path/recipes/own/get.yaml'
   /api/recipes/saved-recipes:
+    get:
+      $ref: '../swagger/path/recipes/getSavedRecipes.yaml'
     post:
       $ref: '../swagger/path/recipes/postSavedRecipes.yaml'
   /api/recipes/saved-recipes/{recipeId}:
