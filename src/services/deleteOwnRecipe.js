@@ -1,14 +1,15 @@
 import { Recipe } from '../db/models/get-Recipe.js';
 import { UsersCollection } from '../db/models/user.js';
+import mongoose from 'mongoose';
+import createHttpError from 'http-errors';
 
 export async function deleteOwnRecipe(userId, recipeId) {
   const recipe = await Recipe.findById(recipeId);
   if (!recipe) {
     return { error: 'Recipe not found', status: 404 };
   }
-  if (recipe.user.toString() !== userId) {
-    return { error: 'This recipe does not belong to you', status: 403 };
-  }
+  if (recipe.user.toString() !== userId)
+    throw createHttpError(403, 'This recipe does not belong to you');
 
   await UsersCollection.updateMany(
     { savedRecipes: recipeId },
@@ -22,13 +23,15 @@ export async function deleteOwnRecipe(userId, recipeId) {
               recipeId: recipe._id,
             },
           ],
-          $slice: -200, // залишаємо тільки останні 200 повідомлень
+          $slice: -100,
         },
       },
     },
   );
 
-  await Recipe.deleteOne({ _id: recipeId });
+  const objectId = new mongoose.Types.ObjectId(recipeId);
+
+  await Recipe.deleteOne({ _id: objectId });
 
   return true;
 }

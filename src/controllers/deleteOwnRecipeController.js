@@ -1,15 +1,11 @@
-import createHttpError from 'http-errors';
+// import createHttpError from 'http-errors';
 import { deleteOwnRecipe } from '../services/deleteOwnRecipe.js';
 
 export async function deleteOwnRecipeController(req, res) {
-  try {
-    const { recipeId } = req.params;
-    const userId = req.user._id;
+  const { recipeId } = req.params;
+  const userId = req.user.id;
 
-    await deleteOwnRecipe(userId, recipeId);
+  await deleteOwnRecipe(userId, recipeId);
 
-    res.status(204).send();
-  } catch {
-    throw createHttpError(403, 'Recipe not your!');
-  }
+  res.status(204).send();
 }
