@@ -1,56 +1,62 @@
 type: object
 required:
-  - name
-  - decr
-  - cookiesTime
+  - title
+  - description
+  - time
   - category
   - ingredients
-  - instruction
+  - instructions
   - owner
   - createdAt
 properties:
   id:
     type: string
-    example: '66b8e6b2f1c8a5f2d1a9c222'
-  name:
+    description: Recipe ObjectId
+    example: '64628af74c3d0ddd28897fcd'
+  title:
     type: string
     maxLength: 64
-    example: 'Pasta Carbonara'
-  decr:
+    example: 'Battenberg Cake'
+  description:
     type: string
     maxLength: 200
-    example: 'Classic Italian pasta with eggs, cheese and pancetta'
-  cookiesTime:
-    type: integer
-    minimum: 1
-    maximum: 360
-    example: 25
-    description: time in minutes
-  cals:
-    type: integer
-    minimum: 1
-    maximum: 10000
-    example: 450
+    example: 'A classic British cake made with almond sponge cake and covered with marzipan.'
+  time:
+    type: string
+    description: 'Cooking time in minutes (stored as a string in DB)'
+    example: '60'
   category:
     type: string
-    example: '66b8e6b2f1c8a5f2d1a9c777'
-    description: ID from the category collection
+    description: 'Human-readable category name from DB'
+    example: 'Dessert'
+  area:
+    type: string
+    nullable: true
+    description: 'Cuisine/area; optional'
+    example: 'British'
+  instructions:
+    type: string
+    maxLength: 1200
+    example: 'Heat oven to 180C/160C fan... line the base and sides...'
+  thumb:
+    type: string
+    format: uri
+    nullable: true
+    description: "Image URL (field name in DB is 'thumb')"
+    example: 'https://ftp.goit.study/img/so-yummy/preview/Battenberg%20Cake.jpg'
   ingredients:
     type: array
     items:
       $ref: './RecipeIngredient.yaml'
-  instruction:
-    type: string
-    maxLength: 1200
-    example: 'Boil pasta, fry pancetta, mix with eggs and cheese...'
-  recipeImg:
-    type: string
-    format: uri
-    example: 'https://cdn.example.com/images/recipe.jpg'
   owner:
     type: string
-    example: '66b8e6b2f1c8a5f2d1a9c999'
+    description: 'Owner ObjectId'
+    example: '64c8d958249fae54bae90bb9'
   createdAt:
     type: string
     format: date-time
-    example: '2025-08-20T12:34:56.000Z'
+    example: '2023-03-11T19:25:33.243+00:00'
+  updatedAt:
+    type: string
+    format: date-time
+    example: '2024-03-03T22:47:51.976+00:00'

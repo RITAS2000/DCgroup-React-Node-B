@@ -21,13 +21,13 @@ properties:
         example: 12
       totalItems:
         type: integer
-        example: 1
+        example: 295
       totalPages:
         type: integer
-        example: 1
+        example: 25
       hasPreviousPage:
         type: boolean
         example: false
       hasNextPage:
         type: boolean
-        example: false
+        example: true
