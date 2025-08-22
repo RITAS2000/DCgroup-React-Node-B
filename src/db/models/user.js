@@ -11,6 +11,14 @@ const usersSchema = new Schema(
         ref: 'Recipe',
       },
     ],
+    notifications: [
+      {
+        message: { type: String, required: true },
+        recipeId: { type: Schema.Types.ObjectId, ref: 'Recipe' },
+        date: { type: Date, default: Date.now },
+        read: { type: Boolean, default: false },
+      },
+    ],
   },
   { timestamps: true, versionKey: false },
 );

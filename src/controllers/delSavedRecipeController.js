@@ -7,7 +7,7 @@ export const delSavedRecipeController = async (req, res) => {
   const userId = req.user.id;
 
   const recipe = await delSavedRecipe(recipeId, userId);
-  if (!recipe) throw createHttpError(404, 'Recipe not found in favorites!');
+  if (!recipe) throw createHttpError(404, 'Recipe not found in saved recipes!');
 
-  res.status(204).send();
+  res.status(204).end();
 };

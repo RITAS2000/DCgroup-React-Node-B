@@ -21,3 +21,22 @@ properties:
     type: string
     format: email
     example: 'testuser@example.com'
+  notifications:
+    description: 'List of notifications for the user'
+    type: array
+    items:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Sorry, the recipe 'Soup' was deleted by the owner"
+        recipeId:
+          type: string
+          example: '68a734851b13ceedd5be25a9'
+        date:
+          type: string
+          format: date-time
+          example: '2025-08-21T15:00:21.970Z'
+        read:
+          type: boolean
+          example: false

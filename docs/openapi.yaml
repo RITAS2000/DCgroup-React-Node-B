@@ -1,11 +1,30 @@
 openapi: 3.1.0
 info:
-  version: 1.0.0
   title: Recipes app
+  version: 1.0.0
+  description: This is a documentation of recipes app
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: This is a documentation of recipes app
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    RecipeIngredient:
+      $ref: ../swagger/components/schemas/RecipeIngredient.yaml
+
+    Recipe:
+      $ref: ../swagger/components/schemas/Recipe.yaml
+
+    RecipeInput:
+      $ref: ../swagger/components/schemas/RecipeInput.yaml
+
+    OwnRecipesResponse:
+      $ref: ../swagger/components/schemas/OwnRecipesResponse.yaml
 
 tags:
   - name: Auth
@@ -26,6 +45,15 @@ servers:
   - url: https://dcgroup-react-node-b.onrender.com
 
 paths:
+  /api/users/current:
+    get:
+      $ref: ../swagger/path/usersCurrent/get.yaml
+  /api/categories:
+    get:
+      $ref: '../swagger/path/categories/get.yaml'
+  /api/ingredients:
+    get:
+      $ref: '../swagger/path/ingredients/get.yaml'
   /api/recipes:
     post:
       $ref: '../swagger/path/recipes/addRecipes.yaml'
@@ -35,6 +63,9 @@ paths:
   /api/recipes/own:
     get:
       $ref: '../swagger/path/recipes/own/get.yaml'
+  /api/recipes/own/{recipeId}:
+    delete:
+      $ref: '../swagger/path/recipes/own/deleteOwn.yaml'
   /api/recipes/saved-recipes:
     get:
       $ref: '../swagger/path/recipes/getSavedRecipes.yaml'
@@ -59,26 +90,3 @@ paths:
   /api/recipes/search:
     get:
       $ref: ../swagger/path/recipes/searchRecipes.yaml
-
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
-  schemas:
-    RecipeIngredient:
-      $ref: ../swagger/components/schemas/RecipeIngredient.yaml
-
-    Recipe:
-      $ref: ../swagger/components/schemas/Recipe.yaml
-
-    RecipeInput:
-      $ref: ../swagger/components/schemas/RecipeInput.yaml
-
-    OwnRecipesResponse:
-      $ref: ../swagger/components/schemas/OwnRecipesResponse.yaml
-
-    SearchRecipes:
-      $ref: '../swagger/components/schemas/Recipe.yaml'

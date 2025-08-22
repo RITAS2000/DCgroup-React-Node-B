@@ -1,0 +1,37 @@
+operationId: DeleteOwnRecipe
+summary: 'Delete own recipe'
+description: 'The owner deletes their recipe. All users who had this recipe in their savedRecipes will receive a notification.'
+tags:
+  - Recipes
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: recipeId
+    required: true
+    schema:
+      type: string
+    description: 'ID of the recipe to delete'
+responses:
+  '204':
+    description: 'Recipe successfully deleted. Notifications have been sent to all users who saved this recipe.'
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    description: Not found
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: Recipe not found
+  '500':
+    $ref: '../../../components/responses/500.yaml'
