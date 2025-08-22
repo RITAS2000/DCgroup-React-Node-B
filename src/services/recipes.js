@@ -1,4 +1,5 @@
 import { Recipe } from '../db/models/get-Recipe.js';
+import { paginate } from '../utils/paginate.js';
 
 export const getOwnRecipesService = async (userId, page = 1, perPage = 12) => {
   const limit = Math.min(Math.max(Number(perPage) || 12, 1), 100);
@@ -15,20 +16,13 @@ export const getOwnRecipesService = async (userId, page = 1, perPage = 12) => {
       .lean(),
   ]);
 
-  const normalized = items.map((doc) => {
-    const { _id, ...rest } = doc;
-    return { id: _id.toString(), ...rest };
-  });
-
-  const totalPages = Math.max(Math.ceil(totalItems / limit), 1);
+  const normalized = items.map(({ _id, __v, ...rest }) => ({
+    id: _id.toString(),
+    ...rest,
+  }));
 
   return {
     data: normalized,
-    page: currentPage,
-    perPage: limit,
-    totalItems,
-    totalPages,
-    hasPreviousPage: currentPage > 1,
-    hasNextPage: currentPage < totalPages,
+    ...paginate({ totalItems, page: currentPage, perPage: limit }),
   };
 };

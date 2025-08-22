@@ -10,7 +10,7 @@ export const getOwnRecipes = async (req, res, next) => {
     res.status(200).json({
       status: 200,
       message: 'Successfully found own recipes!',
-      data: result,
+      ...result,
     });
   } catch (err) {
     next(err);
