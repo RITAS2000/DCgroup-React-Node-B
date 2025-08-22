@@ -21,10 +21,10 @@ properties:
         example: 12
       totalItems:
         type: integer
-        example: 295
+        example: 1
       totalPages:
         type: integer
-        example: 25
+        example: 1
       hasPreviousPage:
         type: boolean
         example: false
