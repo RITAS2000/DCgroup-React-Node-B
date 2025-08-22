@@ -8,7 +8,7 @@ import ingredientsRouter from './ingredients.js';
 import ByIdrecipesRouter from './getRecipeById.routes.js'; // працюе
 import sevedRouter from './addToSaved.js';
 import addRecipeRouter from './addRecipe.js';
-
+import delSavedRecipe from './delSavedRecipe.js';
 import recipesOwnRouter from './recipes.js';
 
 import searchRecipesRouter from './searchRecipes.js';
@@ -23,7 +23,7 @@ router.use('/ingredients', ingredientsRouter);
 
 router.use('/recipes', recipesOwnRouter);
 router.use('/recipes', addRecipeRouter);
-
+router.use('/recipes', delSavedRecipe);
 router.use('/recipes', sevedRouter);
 
 router.use('/recipes', searchRecipesRouter);
