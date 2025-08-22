@@ -5,7 +5,7 @@ export const getOwnRecipesService = async (userId, page = 1, perPage = 12) => {
   const limit = Math.min(Math.max(Number(perPage) || 12, 1), 100);
   const currentPage = Math.max(Number(page) || 1, 1);
 
-  const filter = { owner: userId };
+  const filter = { user: userId };
 
   const [totalItems, items] = await Promise.all([
     Recipe.countDocuments(filter),
