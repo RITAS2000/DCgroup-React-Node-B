@@ -1,6 +1,6 @@
 tags:
   - Auth
-summary: register
+summary: Register
 operationId: registerUser
 description: 'Register a user with payload'
 security:

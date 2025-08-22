@@ -30,4 +30,4 @@ properties:
         example: false
       hasNextPage:
         type: boolean
-        example: true
+        example: false
