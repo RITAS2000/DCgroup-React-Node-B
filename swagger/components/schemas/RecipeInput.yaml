@@ -40,7 +40,7 @@ properties:
     type: string
     maxLength: 1200
     example: 'Boil water. Add salt.'
-  photo:
+  thumb:
     type: string
     format: binary
     description: Recipe image file (max 2MB)
