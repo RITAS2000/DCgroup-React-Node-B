@@ -8,7 +8,7 @@ export async function deleteOwnRecipe(userId, recipeId) {
   if (!recipe) {
     return { error: 'Recipe not found', status: 404 };
   }
-  if (recipe.user.toString() !== userId)
+  if (recipe.owner.toString() !== userId)
     throw createHttpError(403, 'This recipe does not belong to you');
 
   await UsersCollection.updateMany(

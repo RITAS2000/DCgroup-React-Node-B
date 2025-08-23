@@ -30,7 +30,7 @@ export const authenticate = async (req, res, next) => {
       return next(createHttpError(401, 'User not found'));
     }
 
-    req.user = { id: user._id.toString(), name: user.name, email: user.email };
+    req.owner = { id: user._id.toString(), name: user.name, email: user.email };
     next();
   } catch {
     next(createHttpError(500, 'Authentication error'));

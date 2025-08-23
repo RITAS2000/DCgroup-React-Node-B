@@ -6,7 +6,7 @@ export const postSavedRecipesController = async (req, res) => {
   const { recipeId } = req.body;
   if (!recipeId) throw createHttpError(400, 'Recipe ID is required');
 
-  const recipe = await postSavedRecipes(recipeId, req.user.id);
+  const recipe = await postSavedRecipes(recipeId, req.owner.id);
   if (!recipe) throw createHttpError(404, 'Recipe not found!');
 
   res.json({

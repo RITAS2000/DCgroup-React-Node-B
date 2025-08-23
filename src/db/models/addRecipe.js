@@ -7,7 +7,11 @@ const ingredientSchema = new mongoose.Schema({
 
 const recipeSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     title: { type: String, required: true, trim: true, maxlength: 64 },
     description: { type: String, required: true, trim: true, maxlength: 200 },
     time: { type: Number, required: true, min: 1, max: 360 },

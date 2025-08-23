@@ -2,7 +2,7 @@ import createHttpError from 'http-errors';
 import { UsersCollection } from '../db/models/user.js';
 
 export const getSavedRecipesController = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.owner.id;
 
   const page = parseInt(req.query.page) || 1;
   const perPage = parseInt(req.query.perPage) || 12;

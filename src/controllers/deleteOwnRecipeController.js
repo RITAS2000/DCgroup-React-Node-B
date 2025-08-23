@@ -3,7 +3,8 @@ import { deleteOwnRecipe } from '../services/deleteOwnRecipe.js';
 
 export async function deleteOwnRecipeController(req, res) {
   const { recipeId } = req.params;
-  const userId = req.user.id;
+  const userId = req.owner.id;
+  console.log(recipeId, userId);
 
   await deleteOwnRecipe(userId, recipeId);
 

@@ -33,7 +33,7 @@ export const createRecipe = async (req, res, next) => {
         : toInt(req.body.calories);
 
     const doc = {
-      user: req.user.id,
+      owner: req.user.id,
       title: req.body.title?.trim(),
       description: req.body.description?.trim(),
       instructions: req.body.instructions?.trim(),

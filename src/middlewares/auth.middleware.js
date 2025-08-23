@@ -11,7 +11,7 @@ export const protect = (req, res, next) => {
   const token = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, getEnvVar('JWT_SECRET'));
-    req.user = { id: decoded.id };
+    req.owner = { id: decoded.id };
     next();
   } catch {
     return res.status(401).json({ message: 'Not authorized, no token' });
