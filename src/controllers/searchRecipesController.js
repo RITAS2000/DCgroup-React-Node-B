@@ -33,7 +33,7 @@ export const searchRecipesController = async (req, res, next) => {
       status: 200,
       message: 'Successfully found own recipes!',
       data: {
-        data: result.data,
+        data: result.recipes,
         page: result.page,
         perPage: result.perPage,
         totalItems: result.totalItems,
