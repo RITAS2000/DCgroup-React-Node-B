@@ -38,8 +38,6 @@ tags:
     description: Ingredients
   - name: Recipes
     description: Recipes
-  - name: RecipesSearch
-    description: Recipes search
 
 servers:
   - url: http://localhost:3000
@@ -56,6 +54,8 @@ paths:
     get:
       $ref: '../swagger/path/ingredients/get.yaml'
   /api/recipes:
+    get:
+      $ref: ../swagger/path/recipes/searchRecipes.yaml
     post:
       $ref: '../swagger/path/recipes/addRecipes.yaml'
   /api/recipes/{id}:
@@ -87,7 +87,3 @@ paths:
   /api/auth/logout:
     post:
       $ref: '../swagger/path/auth/logout/post.yaml'
-
-  /api/recipes/search:
-    get:
-      $ref: ../swagger/path/recipes/searchRecipes.yaml

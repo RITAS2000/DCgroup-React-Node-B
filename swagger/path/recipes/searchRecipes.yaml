@@ -1,5 +1,5 @@
 operationId: searchRecipes
-tags: [RecipesSearch]
+tags: [Recipes]
 summary: Search recipes by title, category, or ingredients
 description: >
   Public endpoint to search recipes with pagination.

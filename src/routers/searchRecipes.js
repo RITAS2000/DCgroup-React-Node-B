@@ -4,6 +4,6 @@ import { searchRecipesController } from '../controllers/searchRecipesController.
 
 const router = Router();
 
-router.get('/search', ctrlWrapper(searchRecipesController));
+router.get('/', ctrlWrapper(searchRecipesController));
 
 export default router;
