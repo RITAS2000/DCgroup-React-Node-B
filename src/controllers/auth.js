@@ -14,8 +14,7 @@ export const registerUserController = async (req, res) => {
 };
 
 export const loginUserController = async (req, res) => {
-  const session = await loginUser(req.body);
-
+  const { session, user } = await loginUser(req.body);
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + FIFTEEN_MINUTES),
@@ -24,6 +23,10 @@ export const loginUserController = async (req, res) => {
     status: 200,
     message: 'Successfully logged in an user!',
     data: {
+      user: {
+        name: user.name,
+        email: user.email,
+      },
       accessToken: session.accessToken,
     },
   });
