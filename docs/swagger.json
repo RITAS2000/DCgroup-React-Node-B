@@ -42,10 +42,6 @@
     {
       "name": "Recipes",
       "description": "Recipes"
-    },
-    {
-      "name": "RecipesSearch",
-      "description": "Recipes search"
     }
   ],
   "paths": {
@@ -252,6 +248,119 @@
       }
     },
     "/api/recipes": {
+      "get": {
+        "operationId": "searchRecipes",
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Search recipes by title, category, or ingredients",
+        "description": "Public endpoint to search recipes with pagination. Supports filtering by title, category, or ingredient.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "title",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recipe title to search"
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by category"
+          },
+          {
+            "in": "query",
+            "name": "ingredient",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by ingredient name"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 12
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found own recipes!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RecipeInput"
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 12
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 14
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Recipes"
@@ -909,121 +1018,6 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        }
-      }
-    },
-    "/api/recipes/search": {
-      "get": {
-        "operationId": "searchRecipes",
-        "tags": [
-          "RecipesSearch"
-        ],
-        "summary": "Search recipes by title, category, or ingredients",
-        "description": "Public endpoint to search recipes with pagination. Supports filtering by title, category, or ingredient.\n",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "title",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Recipe title to search"
-          },
-          {
-            "in": "query",
-            "name": "category",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filter by category"
-          },
-          {
-            "in": "query",
-            "name": "ingredient",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filter by ingredient name"
-          },
-          {
-            "in": "query",
-            "name": "page",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1
-            }
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100,
-              "default": 12
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully found recipes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully found own recipes!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/RecipeInput"
-                        },
-                        "page": {
-                          "type": "integer",
-                          "example": 1
-                        },
-                        "perPage": {
-                          "type": "integer",
-                          "example": 12
-                        },
-                        "totalItems": {
-                          "type": "integer",
-                          "example": 14
-                        },
-                        "totalPages": {
-                          "type": "integer",
-                          "example": 2
-                        },
-                        "hasPreviousPage": {
-                          "type": "boolean",
-                          "example": false
-                        },
-                        "hasNextPage": {
-                          "type": "boolean",
-                          "example": true
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
