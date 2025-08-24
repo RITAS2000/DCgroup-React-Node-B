@@ -845,7 +845,30 @@
                     },
                     "data": {
                       "type": "object",
+                      "required": [
+                        "user",
+                        "accessToken"
+                      ],
                       "properties": {
+                        "user": {
+                          "type": "object",
+                          "required": [
+                            "name",
+                            "email"
+                          ],
+                          "properties": {
+                            "name": {
+                              "description": "Username",
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "description": "Email",
+                              "type": "string",
+                              "example": "johndoe@example.com"
+                            }
+                          }
+                        },
                         "accessToken": {
                           "type": "string",
                           "description": "Access token for authentication",
