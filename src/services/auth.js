@@ -33,11 +33,12 @@ export const loginUser = async (payload) => {
   await SessionsCollection.deleteOne({ userId: user._id });
   const accessToken = randomBytes(30).toString('base64');
 
-  return await SessionsCollection.create({
+   const session = await SessionsCollection.create({
     userId: user._id,
     accessToken,
     accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
   });
+  return { session, user };
 };
 
 export const logoutUser = async (sessionId) => {
