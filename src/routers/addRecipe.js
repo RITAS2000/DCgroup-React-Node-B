@@ -11,7 +11,7 @@ const router = express.Router();
 router.post(
   '/',
   authenticate,
-  upload.single('photo'),
+  upload.single('thumb'),
   validateBody(recipeSchema),
   ctrlWrapper(createRecipe),
 );

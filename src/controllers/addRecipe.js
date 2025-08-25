@@ -46,7 +46,7 @@ export const createRecipe = async (req, res, next) => {
           amount: String(i?.amount ?? '').trim(),
         }))
         .filter((i) => i.name && i.amount),
-      photo: req.file ? `/uploads/${req.file.filename}` : undefined,
+      thumb: req.file ? `/uploads/${req.file.filename}` : undefined,
     };
 
     const recipe = await Recipe.create(doc);
