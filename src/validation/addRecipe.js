@@ -19,7 +19,7 @@ export const recipeSchema = Joi.object({
     .required(),
 
   ingredients: Joi.alternatives()
-    .try(Joi.array().items(ingredientItem).min(1).max(16), Joi.string())
+    .try(Joi.array().items(ingredientItem).min(2).max(16), Joi.string())
     .required(),
 
   instructions: Joi.string().trim().max(1200).required(),
