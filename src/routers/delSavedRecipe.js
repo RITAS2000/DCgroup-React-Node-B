@@ -7,7 +7,7 @@ import { authenticate } from '../middlewares/authenticate.js';
 const router = Router();
 
 router.delete(
-  '/saved-recipes/:recipeId',
+  '/saved/:recipeId',
   authenticate,
   ctrlWrapper(delSavedRecipeController),
 );

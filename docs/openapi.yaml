@@ -67,12 +67,12 @@ paths:
   /api/recipes/own/{recipeId}:
     delete:
       $ref: '../swagger/path/recipes/own/deleteOwn.yaml'
-  /api/recipes/saved-recipes:
+  /api/recipes/saved:
     get:
       $ref: '../swagger/path/recipes/getSavedRecipes.yaml'
     post:
       $ref: '../swagger/path/recipes/postSavedRecipes.yaml'
-  /api/recipes/saved-recipes/{recipeId}:
+  /api/recipes/saved/{recipeId}:
     delete:
       $ref: '../swagger/path/recipes/{id}/deleteSavedRecipe.yaml'
 

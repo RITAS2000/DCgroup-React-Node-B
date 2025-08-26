@@ -7,10 +7,6 @@ import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-router.get(
-  '/saved-recipes',
-  authenticate,
-  ctrlWrapper(getSavedRecipesController),
-);
+router.get('/saved', authenticate, ctrlWrapper(getSavedRecipesController));
 
 export default router;

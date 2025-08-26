@@ -583,7 +583,7 @@
         }
       }
     },
-    "/api/recipes/saved-recipes": {
+    "/api/recipes/saved": {
       "get": {
         "tags": [
           "Recipes"
@@ -767,7 +767,7 @@
         }
       }
     },
-    "/api/recipes/saved-recipes/{recipeId}": {
+    "/api/recipes/saved/{recipeId}": {
       "delete": {
         "tags": [
           "Recipes"

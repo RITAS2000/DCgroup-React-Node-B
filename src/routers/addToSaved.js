@@ -7,7 +7,7 @@ import { postSavedRecipesController } from '../controllers/postSavedRecipesContr
 const router = Router();
 
 router.post(
-  '/saved-recipes',
+  '/saved',
   authenticate,
   ctrlWrapper(postSavedRecipesController),
 );
