@@ -4,11 +4,13 @@ summary: Search recipes by title, category, or ingredients
 description: >
   Public endpoint to search recipes with pagination.
   Supports filtering by title, category, or ingredient.
+security: []
 parameters:
   - in: query
     name: title
     schema:
       type: string
+      maxLength: 64
     description: Recipe title to search
   - in: query
     name: category

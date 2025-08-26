@@ -3,11 +3,10 @@ tags:
 summary: Register
 operationId: registerUser
 description: 'Register a user with payload'
-security:
-  - bearerAuth: []
+security: []
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         required:

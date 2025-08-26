@@ -3,11 +3,10 @@ tags:
 summary: Login
 operationId: loginUser
 description: 'Login user with email and password'
-security:
-  - bearerAuth: []
+security: []
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         required:

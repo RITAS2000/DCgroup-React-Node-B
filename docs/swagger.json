@@ -255,12 +255,14 @@
         ],
         "summary": "Search recipes by title, category, or ingredients",
         "description": "Public endpoint to search recipes with pagination. Supports filtering by title, category, or ingredient.\n",
+        "security": [],
         "parameters": [
           {
             "in": "query",
             "name": "title",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 64
             },
             "description": "Recipe title to search"
           },
@@ -412,7 +414,6 @@
         "summary": "Get recipes by id",
         "operationId": "getRecipe",
         "description": "Get recipe by id",
-        "security": [],
         "parameters": [
           {
             "in": "path",
@@ -815,14 +816,10 @@
         "summary": "Register",
         "operationId": "registerUser",
         "description": "Register a user with payload",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -901,14 +898,10 @@
         "summary": "Login",
         "operationId": "loginUser",
         "description": "Login user with email and password",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
