@@ -1,7 +1,5 @@
-
 import { FIFTEEN_MINUTES } from '../constants/index.js';
-import { registerUser,logoutUser,loginUser } from '../services/auth.js';
-
+import { registerUser, logoutUser, loginUser } from '../services/auth.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -32,23 +30,18 @@ export const loginUserController = async (req, res) => {
   });
 };
 
-
-
-
 export const logoutUserController = async (req, res) => {
-    console.log('in logoutUserController');
+  console.log('in logoutUserController');
 
-    console.log('cookies', req.cookies);
+  console.log('cookies', req.cookies);
 
-    if (req.cookies.sessionId) {
+  if (req.cookies.sessionId) {
+    await logoutUser(req.cookies.sessionId);
+  }
+  console.log('logged out');
 
-      await logoutUser(req.cookies.sessionId);
-    }
-    console.log('logged out');
+  res.clearCookie('sessionId');
+  //res.clearCookie('refreshToken');
 
-
-    res.clearCookie('sessionId');
-    //res.clearCookie('refreshToken');
-
-    res.status(204).send();
+  res.status(204).send();
 };
