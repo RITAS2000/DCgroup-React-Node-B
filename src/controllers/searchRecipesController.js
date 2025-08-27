@@ -15,7 +15,7 @@ export const searchRecipesController = async (req, res, next) => {
     }
 
     if (ingredient) {
-      filter.ingredients = { $elemMatch: { name: ingredient } };
+      filter.ingredients = { $elemMatch: { id: ingredient } };
     }
 
     const result = await searchRecipesService(filter, {
