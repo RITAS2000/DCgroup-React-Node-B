@@ -40,7 +40,6 @@ tags:
     description: Recipes
 
 servers:
-  - url: http://localhost:3000
   - url: https://dcgroup-react-node-b.onrender.com
 
 paths:
