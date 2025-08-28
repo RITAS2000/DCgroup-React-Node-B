@@ -16,7 +16,7 @@ export const authenticate = async (req, res, next) => {
 
     const session = await SessionsCollection.findOne({ accessToken: token });
     if (!session) {
-      return next(createHttpError(401, 'Session not found'));
+      return res.status(404).json({ message: 'Session not found or expired' });
     }
     const isExpired =
       Date.now() > new Date(session.accessTokenValidUntil).getTime();
