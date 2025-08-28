@@ -23,4 +23,5 @@ export const recipeSchema = Joi.object({
     .required(),
 
   instructions: Joi.string().trim().max(1200).required(),
+  thumb: Joi.string(),
 });
