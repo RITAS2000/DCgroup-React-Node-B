@@ -2,12 +2,7 @@ import Joi from 'joi';
 
 const ingredientItem = Joi.object({
   name: Joi.string().trim().required(),
-  measure: [
-    {
-      name: { type: String, required: true },
-      measure: { type: String, required: true },
-    },
-  ],
+  measure: Joi.string().trim().required(),
 });
 
 export const recipeSchema = Joi.object({
@@ -23,9 +18,7 @@ export const recipeSchema = Joi.object({
     )
     .required(),
 
-  ingredients: Joi.alternatives()
-    .try(Joi.array().items(ingredientItem).min(2).max(16), Joi.string())
-    .required(),
+  ingredients: Joi.array().items(ingredientItem).min(2).max(16).required(),
 
   instructions: Joi.string().trim().max(1200).required(),
   thumb: Joi.string(),
