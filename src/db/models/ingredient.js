@@ -2,10 +2,9 @@ import { Schema, model } from 'mongoose';
 
 const ingredientSchema = new Schema(
   {
-    name: { type: String, required: true },
-    measure: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
   },
-  { _id: false },
+  { versionKey: false, timestamps: false },
 );
 
 export const IngredientsCollection = model('ingredients', ingredientSchema);

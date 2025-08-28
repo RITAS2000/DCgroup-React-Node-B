@@ -32,7 +32,7 @@ const RecipeSchema = new mongoose.Schema(
     ingredients: {
       type: [IngredientEntrySchema],
       required: true,
-      validate: (v) => Array.isArray(v) && v.length > 0,
+      validator: (v) => Array.isArray(v) && v.length >= 2 && v.length <= 16,
     },
     instruction: { type: String, required: true, maxlength: 1200 },
     thumb: { type: String },
