@@ -42,7 +42,7 @@ export async function addRecipeService({ userId, body, file }) {
     ingredients: ingredients
       .map((i) => ({
         name: String(i?.name ?? '').trim(),
-        amount: String(i?.amount ?? '').trim(),
+        measure: String(i?.amount ?? '').trim(),
       }))
       .filter((i) => i.name && i.amount),
     thumb: file ? `/uploads/${file.filename}` : undefined,
