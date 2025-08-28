@@ -2,7 +2,12 @@ import Joi from 'joi';
 
 const ingredientItem = Joi.object({
   name: Joi.string().trim().required(),
-  measure: Joi.string().trim().required(),
+  measure: [
+    {
+      name: { type: String, required: true },
+      measure: { type: String, required: true },
+    },
+  ],
 });
 
 export const recipeSchema = Joi.object({
