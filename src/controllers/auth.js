@@ -1,4 +1,3 @@
-import { FIFTEEN_MINUTES } from '../constants/index.js';
 import { registerUser, logoutUser, loginUser } from '../services/auth.js';
 
 export const registerUserController = async (req, res) => {
@@ -15,7 +14,7 @@ export const loginUserController = async (req, res) => {
   const { session, user } = await loginUser(req.body);
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: new Date(Date.now() + FIFTEEN_MINUTES),
+    expires: new Date(Date.now() + 60 * 60 * 1000),
   });
   res.json({
     status: 200,
@@ -41,7 +40,6 @@ export const logoutUserController = async (req, res) => {
   console.log('logged out');
 
   res.clearCookie('sessionId');
-  //res.clearCookie('refreshToken');
 
   res.status(204).send();
 };

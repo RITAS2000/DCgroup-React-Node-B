@@ -1,23 +1,21 @@
 import { randomBytes } from 'crypto';
-import bcrypt from "bcrypt";
-import createHttpError from "http-errors";
-import { FIFTEEN_MINUTES, } from '../constants/index.js';
+import bcrypt from 'bcrypt';
+import createHttpError from 'http-errors';
+import { FIFTEEN_MINUTES } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 import { UsersCollection } from '../db/models/user.js';
 
-
 export const registerUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
-    if (user) throw createHttpError(409, 'Email in use');
+  if (user) throw createHttpError(409, 'Email in use');
 
-    const hashedPassword = await bcrypt.hash(payload.password, 10);
+  const hashedPassword = await bcrypt.hash(payload.password, 10);
 
-    return await UsersCollection.create({
-      ...payload,
-      password: hashedPassword,
-    });
+  return await UsersCollection.create({
+    ...payload,
+    password: hashedPassword,
+  });
 };
-
 
 export const loginUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
@@ -33,16 +31,14 @@ export const loginUser = async (payload) => {
   await SessionsCollection.deleteOne({ userId: user._id });
   const accessToken = randomBytes(30).toString('base64');
 
-   const session = await SessionsCollection.create({
+  const session = await SessionsCollection.create({
     userId: user._id,
     accessToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    accessTokenValidUntil: new Date(Date.now() + 60 * 60 * 1000),
   });
   return { session, user };
 };
 
 export const logoutUser = async (sessionId) => {
-    await SessionsCollection.deleteOne({ _id: sessionId });
-  };
-
-
+  await SessionsCollection.deleteOne({ _id: sessionId });
+};
