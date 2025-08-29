@@ -18,7 +18,7 @@ const PORT = process.env.PORT || getEnvVar('PORT', '8080');
 
 const frontendUrl = [
   'https://d-cgroup-project-f1-x2.vercel.app',
-  'http://localhost:5173/',
+  'http://localhost:5173',
 ];
 
 export function setupServer() {
