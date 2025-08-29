@@ -20,15 +20,24 @@ responses:
                   description: IDs of recipes saved by the current user
                   items:
                     type: string
-                    example: 66c4b1f2a2e123456789abcd
+                    example: '6462a8f74c3d0ddd288980b7'
+                notifications:
+                  type: array
+                  description: Notifications for the current user
+                  items:
+                    type: object
+                  example: []
         examples:
           success:
             value:
-              _id: '68a622a7cd40d43441c362f1'
-              name: 'Max'
-              email: 'max@example.com'
+              _id: '68a889160c771f5e219c7777'
+              name: 'Alina'
+              email: 'rrr123@gmail.com'
               savedRecipes:
-                - '66c4b1f2a2e123456789abcd'
-                - '66c4b1f2a2e123456789abce'
+                - '6462a8f74c3d0ddd288980b7'
+                - '6462a8f74c3d0ddd288980b9'
+              notifications: []
+              createdAt: '2025-08-22T15:13:26.695Z'
+              updatedAt: '2025-08-23T22:46:09.876Z'
   '401':
     $ref: '../../components/responses/401.yaml'
