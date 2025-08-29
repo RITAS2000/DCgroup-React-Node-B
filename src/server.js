@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-// import pino from 'pino-http';
+import pino from 'pino-http';
 import { getEnvVar } from './utils/getEnvVar.js';
 import router from './routers/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -19,14 +19,19 @@ const PORT = process.env.PORT || getEnvVar('PORT', '8080');
 export function setupServer() {
   const app = express();
   app.use(express.json());
-  app.use(cors());
-  // app.use(
-  //   pino({
-  //     transport: {
-  //       target: 'pino-pretty',
-  //     },
-  //   }),
-  // );
+  app.use(
+    cors({
+      origin: 'https://d-cgroup-project-f1-x2.vercel.app/',
+      credentials: true,
+    }),
+  );
+  app.use(
+    pino({
+      transport: {
+        target: 'pino-pretty',
+      },
+    }),
+  );
 
   app.use(cookieParser());
 
