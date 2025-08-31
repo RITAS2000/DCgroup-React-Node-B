@@ -45,7 +45,7 @@ export async function addRecipeService({ userId, body, file }) {
         measure: String(i?.measure ?? '').trim(),
       }))
       .filter((i) => i.name && i.measure),
-    thumb: file ? `/uploads/${file.filename}` : undefined,
+    thumb: file?.path ?? file?.secure_url ?? undefined,
   };
 
   const recipe = await Recipe.create(doc);
