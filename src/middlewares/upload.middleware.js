@@ -1,16 +1,12 @@
 import multer from 'multer';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import fs from 'node:fs';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const uploadDir = path.resolve(__dirname, '../../uploads');
-
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const fileFilter = (_req, file, cb) => {
   const ok = /^image\/(png|jpe?g|webp|gif|bmp|tiff?)$/i.test(file.mimetype);
@@ -18,21 +14,24 @@ const fileFilter = (_req, file, cb) => {
   cb(null, true);
 };
 
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, uploadDir),
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const base = path
-      .basename(file.originalname, ext)
-      .replace(/[^\w.-]+/g, '_');
-    cb(null, `${Date.now()}_${base}${ext}`);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'recipes',
+    public_id: (_req, file) => {
+      const base = file.originalname
+        .toLowerCase()
+        .replace(/\.[^/.]+$/, '')
+        .replace(/[^\w.-]+/g, '_');
+      return `${Date.now()}_${base}`;
+    },
   },
 });
 
 export const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 2 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 export const uploadErrorHandler = (err, _req, res, next) => {
