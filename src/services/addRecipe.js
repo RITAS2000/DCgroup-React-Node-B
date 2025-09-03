@@ -41,7 +41,7 @@ export async function addRecipeService({ userId, body, file }) {
     category,
     ingredients: ingredients
       .map((i) => ({
-        id: String(i?.id ?? '').trim(),
+        // id: String(i?.id ?? '').trim(),
         name: String(i?.name ?? '').trim(),
         measure: String(i?.measure ?? '').trim(),
       }))

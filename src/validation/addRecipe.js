@@ -3,7 +3,7 @@ import Joi from 'joi';
 const ingredientItem = Joi.object({
   name: Joi.string().trim().required(),
   measure: Joi.string().trim().required(),
-  id: Joi.string().trim(),
+  // id: Joi.string().trim(),
 });
 
 export const recipeSchema = Joi.object({
