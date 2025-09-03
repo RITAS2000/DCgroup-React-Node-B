@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const ingredientSchema = new mongoose.Schema({
+  id: { type: String, trim: true }, // <-- додаємо поле
   name: { type: String, required: true, trim: true },
   measure: { type: String, required: true, trim: true },
 });
